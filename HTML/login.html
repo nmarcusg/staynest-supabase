@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
+  
+  <meta name="description" content="Log in or register to StayNest to host or reserve your perfect stay." />
+  <title>StayNest | Login</title>
+
+  <link rel="stylesheet" href="../CSS/login.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <main class="main">
+    <!-- Login Form -->
+    <section id="login-form-container" class="form" aria-label="Login form">
+      <header class="heading">
+        <img src="https://raw.githubusercontent.com/nmarcusg/site-images/main/logo-with-text.png" alt="StayNest logo" class="logo" />
+        <h2 class="main-heading">Log in to your account</h2>
+        <p class="sub-heading">Enter your username and password to reserve and host!</p>
+      </header>
+
+      <form id="login-form" class="form" aria-label="Login">
+        <label for="logEmail" class="label-text">Email</label>
+        <input type="text" id="logEmail" class="input-box" required />
+
+        <label for="logPassword" class="label-text">Password</label>
+        <input type="password" id="logPassword" class="input-box" required />
+
+        <input type="submit" id="login-button" value="Login" class="button" />
+      </form>
+
+      <nav class="center" aria-label="Switch to register">
+        <p>No account yet?</p>
+        <input type="button" value="Register" class="button-no-style" id="show-register" />
+      </nav>
+    </section>
+
+    <!-- Register Form -->
+    <section id="register-form-container" class="form" style="display: none;" aria-label="Register form">
+      <header class="heading">
+        <img src="https://raw.githubusercontent.com/nmarcusg/site-images/main/logo-with-text.png" alt="StayNest logo" class="logo" />
+        <h2 class="main-heading">Create a new account</h2>
+        <p class="sub-heading">Fill in the details to register.</p>
+      </header>
+
+      <form id="register-form" class="form" aria-label="Register">
+        <label for="regEmail" class="label-text">Email</label>
+        <input type="email" id="regEmail" class="input-box" required />
+
+        <label for="regPassword" class="label-text">Password</label>
+        <input type="password" id="regPassword" class="input-box" required />
+
+        <input type="submit" id="register-button" value="Register" class="button" />
+      </form>
+
+      <nav class="center" aria-label="Switch to login">
+        <p>Already have an account?</p>
+        <input type="button" value="Login" class="button-no-style" id="show-login" />
+      </nav>
+    </section>
+
+    <!-- Complete Profile Form -->
+    <section id="complete-profile-form-container" class="form" style="display: none;" aria-label="Complete profile form">
+      <header class="heading">
+        <h2 class="main-heading">Complete Your Profile</h2>
+        <p class="sub-heading">Just a few more details to finish setting up your account.</p>
+      </header>
+
+      <form id="complete-profile-form" class="form" aria-label="Complete Profile">
+        <label class="label-text" for="firstName">First Name</label>
+        <input type="text" id="firstName" class="input-box" required />
+
+        <label class="label-text" for="lastName">Last Name</label>
+        <input type="text" id="lastName" class="input-box" required />
+
+        <label class="label-text" for="username">Username</label>
+        <input type="text" id="username" class="input-box" required />
+
+        <label class="label-text" for="avatar">Profile Picture</label>
+        <input type="file" id="avatar" accept="image/*" required />
+
+        <input type="submit" value="Finish Setup" class="button" />
+      </form>
+    </section>
+  </main>
+  <script src="../JS/login.js" defer></script>
+</body>
+</html>

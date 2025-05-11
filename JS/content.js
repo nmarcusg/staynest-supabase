@@ -1,0 +1,128 @@
+const supabaseUrl = "https://wkbljryfnphbthnfbghj.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrYmxqcnlmbnBoYnRobmZiZ2hqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU2MzQyODEsImV4cCI6MjA2MTIxMDI4MX0.W8Tcg8whyMUqS0yvOenEaNU6wrFzLr1vWNRhJ6rNOac";
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey, {
+    auth: {
+      persistSession: true,       // Store session in localStorage
+      autoRefreshToken: true,     // Keep session tokens fresh
+      detectSessionInUrl: true,   // Read URL for OAuth redirects, if any
+    }
+  });
+  
+
+
+async function loadProperties() {
+    try {
+      const { data: images, error: imageError } = await supabase
+      .from('property_images')
+      .select('*');
+    
+    console.log("Standalone images query:", images);
+
+
+        const { data: properties, error } = await supabase
+            .from('properties')
+            .select(`*,property_images(image_path)`);
+
+        if (error) {
+            console.error("Error fetching properties:", error.message);
+            return;
+        }
+
+        const template = document.getElementById('template');
+        const container = document.getElementById('card-container');
+
+        for (const property of properties) {
+            const card = template.content.cloneNode(true);
+
+            card.querySelector('.title').textContent = property.title;
+            card.querySelector('.location').textContent = property.address?.city ?? "Unknown City";
+            card.querySelector('.rate').textContent = `Php ${property.price_per_night} per Night`;
+            card.querySelector('.card').dataset.property_id = property.property_id;
+            const imgContainer = card.querySelector('.img-container');
+            console.log(property)
+
+            // Use the first image from the property_images array
+            if (property.property_images && property.property_images.length > 0) {
+                const imagePath = property.property_images[0].image_path;
+                // Add property ID to the path
+                const img = document.createElement('img');
+                img.src = imagePath;               
+                img.alt = property.title;
+                img.style.width = '100%';
+                img.style.height = 'auto';
+                imgContainer.appendChild(img);
+            } else {
+                console.warn(`No images found for property ID ${property.property_id}`);
+                const placeholderImg = document.createElement('img');
+                placeholderImg.src = 'https://via.placeholder.com/150';
+                placeholderImg.alt = 'No image available';
+                placeholderImg.style.width = '100%';
+                placeholderImg.style.height = 'auto';
+                imgContainer.appendChild(placeholderImg);
+            }
+
+            const cardElement = card.querySelector('.card');
+            cardElement.dataset.propertyId = property.property_id;
+
+            cardElement.addEventListener('click', () => {
+                const id = cardElement.dataset.propertyId;
+                window.location.href = `property.html?id=${id}`;
+            });
+
+            container.appendChild(card);
+        }
+    } catch (error) {
+        console.error('Error loading properties:', error);
+    }
+}
+
+
+
+const siteHeader = document.getElementById('header');
+
+const loginStatus = document.createElement('p');
+const logInOut = document.getElementById('logInOut');
+
+
+supabase.auth.onAuthStateChange((event, session) => {
+    console.log(event);
+    console.log(session);
+    
+    const userInfoDiv = document.getElementById('user-email');
+    userInfoDiv.innerHTML = ''; // Clear previous content
+  
+    if (session?.user) {
+      console.log('User  is logged in:', session.user.email);
+      
+      const emailParagraph = document.createElement('p');
+      emailParagraph.textContent = `You are logged in as: ${session.user.email}`;
+      userInfoDiv.appendChild(emailParagraph);
+    } else {
+      console.log('User  is not logged in');
+    }
+  });
+
+// Logout button functionality
+const logoutButton = document.getElementById('logout');
+
+async function signOut() {
+  const { error } = await supabase.auth.signOut()
+
+  if (error) {
+    console.error('Error signing out:', error.message);
+    return;
+  }
+}
+
+logoutButton.addEventListener('click', async () => {
+  signOut();
+  });
+
+
+
+
+
+
+loadProperties();
+
+

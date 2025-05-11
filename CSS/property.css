@@ -1,0 +1,18 @@
+* { 
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+.placeholder-img {
+    max-width: 800px;
+    min-height: 400px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+
+}

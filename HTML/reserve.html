@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../CSS/reserve.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <h1>Reservation Details</h1>
+    
+    <div class="reservation-details">
+        <div class="property-info">
+            <h2>Property Information</h2>
+            <p id="propertyName">Placeholder Property Name</p>
+            <p id="propertyLocation">Placeholder Property Location</p>
+            <p id="propertyPrice">Placeholder Property Price</p>
+        </div>
+
+        <div class="user-info">
+            <h2>User Information</h2>
+            <p id="userName">Placeholder User Name</p>
+            <p id="userEmail">Placeholder User Email</p>
+        </div>
+
+        <div class="reservation-dates" id="reservationDates">
+            <h2>Reservation Dates</h2>
+        
+            <label for="checkInDate">Check-in Date:</label>
+            <input type="date" id="checkInDate" name="checkInDate" required>
+        
+            <label for="checkOutDate">Check-out Date:</label>
+            <input type="date" id="checkOutDate" name="checkOutDate" required>
+            
+            <p id="checkoutPrice"></p>
+        </div>
+
+        <button id="confirmReservationButton">Confirm Reservation</button>
+    </div>
+
+    <script src="../JS/reserve.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body {
+    padding: 1rem;
+}
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    padding: 5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    flex: 200px;
+    cursor: pointer;
+}
+
+.img-container {
+    background-color: whitesmoke;
+    border: 2px solid black;
+    border-radius: 1rem;
+    width: 250px;
+    height: 250px;
+}
+
+.location {
+    font-size: .8rem;
+}
