@@ -114,6 +114,34 @@ async function loadPropertyDetails() {
   }
 }
 
+async function loadUnavailableDates() {
+  try {
+    const { data: bookings, error } = await supabase
+      .from('reservations')
+      .select('check_in_date, check_out_date')
+      .eq('property_id', propertyId)
+      .gte('check_out_date', formatDate(new Date())) 
+      .order('check_in_date', { ascending: true });
+
+    if (error) throw error;
+
+    const listEl = document.getElementById('unavailable-dates-list');
+    listEl.innerHTML = '';
+
+    bookings.forEach(({ check_in_date, check_out_date }) => {
+      const end = new Date(check_out_date);
+      end.setDate(end.getDate());
+
+      const li = document.createElement('li');
+      li.textContent = `${check_in_date} -  ${formatDate(end)}`;
+      listEl.appendChild(li);
+    });
+
+  } catch (err) {
+    console.error('Could not load unavailable dates:', err.message);
+  }
+}
+
 async function loadUserDetails(session) {
   try {
     const { data: user, error } = await supabase
@@ -194,7 +222,7 @@ confirmBtn.addEventListener("click", async () => {
 
     if (insertErr) throw insertErr;
 
-    showMessage("Reservation confirmed!", "reservationSuccess", "green");
+    showMessage("Reservation confirmed! Waiting for owner approval", "reservationSuccess", "green");
 
   } catch (err) {
     console.error(err);
@@ -207,3 +235,4 @@ confirmBtn.addEventListener("click", async () => {
 
 checkSessionAndLoadUser();
 loadPropertyDetails();
+loadUnavailableDates();
