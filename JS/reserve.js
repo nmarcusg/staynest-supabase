@@ -2,106 +2,115 @@ const supabaseUrl = "https://wkbljryfnphbthnfbghj.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrYmxqcnlmbnBoYnRobmZiZ2hqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU2MzQyODEsImV4cCI6MjA2MTIxMDI4MX0.W8Tcg8whyMUqS0yvOenEaNU6wrFzLr1vWNRhJ6rNOac";
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-const reservation = document.getElementById("reservationDates");
-const checkIn = document.getElementById("checkInDate");
-const checkOut = document.getElementById("checkOutDate");
+const checkInInput = document.getElementById("checkInDate");
+const checkOutInput = document.getElementById("checkOutDate");
+const confirmBtn = document.getElementById("confirmReservationButton");
+const reservationDiv = document.getElementById("reservationDates");
+const priceDisplay = document.getElementById("checkoutPrice");
+const propertyId = new URLSearchParams(window.location.search).get("id");
+
+let currentUserId = null;
+let pricePerNight = 0;
 
 function formatDate(date) {
   return date.toISOString().split("T")[0];
 }
 
-function clearError(id) {
+function clearMessage(id) {
   const existing = document.getElementById(id);
   if (existing) existing.remove();
 }
 
-function showError(message, id) {
-  clearError(id);
+function showMessage(message, id, color = "red") {
+  clearMessage(id);
   const p = document.createElement("p");
   p.id = id;
   p.textContent = message;
-  p.style.color = "red";
+  p.style.color = color;
   p.style.textAlign = "center";
-  reservation.appendChild(p);
+  reservationDiv.appendChild(p);
 }
 
-const today = new Date();
-const tomorrow = new Date(today);
-tomorrow.setDate(tomorrow.getDate() + 1);
-const dayAfter = new Date(tomorrow);
-dayAfter.setDate(dayAfter.getDate() + 1);
+(function initializeDates() {
+  const today = new Date();
+  const checkInDate = new Date(today);
+  checkInDate.setDate(checkInDate.getDate() + 1);
+  const checkOutDate = new Date(checkInDate);
+  checkOutDate.setDate(checkOutDate.getDate() + 1);
 
-checkIn.value = formatDate(tomorrow);
-checkIn.min = formatDate(tomorrow);
-checkOut.value = formatDate(dayAfter);
-checkOut.min = formatDate(dayAfter);
+  checkInInput.value = formatDate(checkInDate);
+  checkInInput.min = formatDate(checkInDate);
+  checkOutInput.value = formatDate(checkOutDate);
+  checkOutInput.min = formatDate(checkOutDate);
+})();
 
-checkIn.addEventListener("change", () => {
-  const selectedCheckIn = new Date(checkIn.value);
-  const minCheckIn = new Date(today);
-  minCheckIn.setDate(minCheckIn.getDate() + 1);
+checkInInput.addEventListener("change", () => {
+  const selected = new Date(checkInInput.value);
+  const min = new Date();
+  min.setDate(min.getDate() + 1);
 
-  if (selectedCheckIn < minCheckIn) {
-    showError("Check-in date cannot be in the past.", "checkInError");
-    checkIn.value = formatDate(minCheckIn);
+  if (selected < min) {
+    showMessage("Check-in date cannot be in the past.", "checkInError");
+    checkInInput.value = formatDate(min);
   } else {
-    clearError("checkInError");
-    const nextDay = new Date(selectedCheckIn);
+    clearMessage("checkInError");
+    const nextDay = new Date(selected);
     nextDay.setDate(nextDay.getDate() + 1);
-    checkOut.min = formatDate(nextDay);
-    if (new Date(checkOut.value) <= selectedCheckIn) {
-      checkOut.value = formatDate(nextDay);
+    checkOutInput.min = formatDate(nextDay);
+
+    if (new Date(checkOutInput.value) <= selected) {
+      checkOutInput.value = formatDate(nextDay);
     }
   }
+
+  updateTotalPrice();
 });
 
-checkOut.addEventListener("change", () => {
-  const checkInDate = new Date(checkIn.value);
-  const checkOutDate = new Date(checkOut.value);
-  if (checkOutDate <= checkInDate) {
-    showError("Check-out must be after check-in.", "checkOutError");
-    const nextDay = new Date(checkInDate);
+checkOutInput.addEventListener("change", () => {
+  const checkIn = new Date(checkInInput.value);
+  const checkOut = new Date(checkOutInput.value);
+
+  if (checkOut <= checkIn) {
+    showMessage("Check-out must be after check-in.", "checkOutError");
+    const nextDay = new Date(checkIn);
     nextDay.setDate(nextDay.getDate() + 1);
-    checkOut.value = formatDate(nextDay);
+    checkOutInput.value = formatDate(nextDay);
   } else {
-    clearError("checkOutError");
+    clearMessage("checkOutError");
   }
-});
 
+  updateTotalPrice();
+});
 
 function updateTotalPrice() {
-  const checkInDate = new Date(checkIn.value);
-  const checkOutDate = new Date(checkOut.value);
-  const nights = Math.floor((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
-  const totalPrice = nights * pricePerNight;
+  const checkIn = new Date(checkInInput.value);
+  const checkOut = new Date(checkOutInput.value);
+  const nights = Math.floor((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+  const total = nights * pricePerNight;
 
-  const priceDisplay = document.getElementById("checkoutPrice");
-  if (nights > 0) {
-    priceDisplay.textContent = `${nights} night(s) × Php ${pricePerNight} = Php ${totalPrice}`;
-  } else {
-    priceDisplay.textContent = "";
-  }
+  priceDisplay.textContent = nights > 0
+    ? `${nights} night(s) × Php ${pricePerNight} = Php ${total}`
+    : "";
 }
-
-checkIn.addEventListener("change", updateTotalPrice);
-checkOut.addEventListener("change", updateTotalPrice);
 
 async function loadPropertyDetails() {
   try {
-    const urlParams = new URLSearchParams(window.location.search);
-    const propertyId = urlParams.get("id");
     const { data: property, error } = await supabase
       .from("properties")
       .select("*")
       .eq("property_id", propertyId)
       .single();
-    if (error) return console.error("Error fetching property details:", error.message);
+
+    if (error) throw error;
+
     document.getElementById("propertyName").textContent = property.title;
     document.getElementById("propertyLocation").textContent = property.address?.city ?? "Unknown City";
     document.getElementById("propertyPrice").textContent = `Php ${property.price_per_night} per Night`;
     pricePerNight = property.price_per_night;
-  } catch (error) {
-    console.error("Error fetching property details:", error);
+
+    updateTotalPrice();
+  } catch (err) {
+    console.error("Error fetching property:", err.message);
   }
 }
 
@@ -112,16 +121,19 @@ async function loadUserDetails(session) {
       .select("*")
       .eq("id", session.user.id)
       .single();
-    if (error) return console.error("Error fetching user details:", error.message);
+
+    if (error) throw error;
+
+    currentUserId = session.user.id;
     document.getElementById("userName").textContent = `Name: ${user.name_first} ${user.name_last}`;
     document.getElementById("userEmail").textContent = `Email: ${session.user.email}`;
-  } catch (error) {
-    console.error("Error fetching user details:", error);
+  } catch (err) {
+    console.error("Error loading user:", err.message);
   }
 }
 
 async function checkSessionAndLoadUser() {
-  const { data: { session }, error } = await supabase.auth.getSession();
+  const { data: { session } } = await supabase.auth.getSession();
   if (session) {
     await loadUserDetails(session);
   } else {
@@ -134,6 +146,62 @@ supabase.auth.onAuthStateChange((_event, session) => {
     loadUserDetails(session);
   } else {
     window.location.href = "/login.html";
+  }
+});
+
+
+confirmBtn.addEventListener("click", async () => {
+  confirmBtn.disabled = true;
+  confirmBtn.textContent = "Submitting…";
+
+  clearMessage("reservationError");
+  clearMessage("reservationSuccess");
+
+  const checkIn = checkInInput.value;
+  const checkOut = checkOutInput.value;
+
+  try {
+    const { data: overlapping, error: overlapErr } = await supabase
+      .from("reservations")
+      .select("id")
+      .eq("property_id", propertyId)
+      .gte("check_out_date", checkIn)
+      .lte("check_in_date", checkOut);
+
+    if (overlapErr) throw overlapErr;
+    if (overlapping.length) {
+      showMessage("Those dates are already booked.", "reservationError");
+      confirmBtn.disabled = false;
+      confirmBtn.textContent = "Confirm Reservation";
+      return;
+    }
+
+    const nights = Math.floor(
+      (new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24)
+    );
+    const total = nights * pricePerNight;
+
+    const { error: insertErr } = await supabase
+      .from("reservations")
+      .insert([{
+        property_id: propertyId,
+        guest_id: currentUserId,
+        check_in_date: checkIn,
+        check_out_date: checkOut,
+        total_price: total,
+      }])
+      .single();
+
+    if (insertErr) throw insertErr;
+
+    showMessage("Reservation confirmed!", "reservationSuccess", "green");
+
+  } catch (err) {
+    console.error(err);
+    showMessage("Failed to create reservation. Please try again.", "reservationError");
+  } finally {
+    confirmBtn.disabled = false;
+    confirmBtn.textContent = "Confirm Reservation";
   }
 });
 
