@@ -75,7 +75,7 @@ async function loadPropertyDetails() {
         rateElement.textContent = `Php ${property.price_per_night} per Night`;
         descriptionElement.textContent = property.description ?? "No description available";
 
-        for (amenity of property.amenities) {
+        for (const amenity of property.amenities) {
             const amenityElement = document.createElement('li');
             amenityElement.textContent = amenity;
             amenityList.appendChild(amenityElement);
@@ -101,6 +101,7 @@ async function loadPropertyDetails() {
                 img.alt = property.title;
                 img.style.width = '100%';
                 img.style.height = 'auto';
+                console.log(img)
                 imgContainer.appendChild(img);
             }
         } else {
