@@ -8,6 +8,23 @@
 </head>
 <body>
     <h1>Host your own property</h1>
+    <form id="host-form">
+        <label for="property-name">Property Name:</label>
+        <input type="text" id="property-name" name="property-name" required>
+
+        <label for="property-description">Description:</label>
+        <textarea id="property-description" name="property-description" required></textarea>
+
+        <label for="property-location">Address:</label>
+        
+
+        <label for="property-price">Price per night:</label>
+        <input type="number" id="property-price" name="property-price" required>
+
+        <button type="submit">Submit</button>
+    </form>
+
+
     <script type="module" src="../JS/host.js" defer></script>
 </body>
 </html>
