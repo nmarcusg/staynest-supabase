@@ -1,0 +1,122 @@
+{
+    "NCR": {
+      "name": "National Capital Region",
+      "cities": [
+        "Caloocan",
+        "Las Piñas",
+        "Makati",
+        "Malabon",
+        "Mandaluyong",
+        "Manila",
+        "Marikina",
+        "Muntinlupa",
+        "Navotas",
+        "Parañaque",
+        "Pasay",
+        "Pasig",
+        "Quezon City",
+        "San Juan",
+        "Taguig",
+        "Valenzuela"
+      ]
+    },
+    "Region I": {
+      "name": "Ilocos Region",
+      "cities": [
+        "Alaminos",
+        "Batac",
+        "Candon",
+        "Dagupan",
+        "Laoag",
+        "San Carlos",
+        "San Fernando (La Union)",
+        "Urdaneta",
+        "Vigan"
+      ]
+    },
+    "Region II": {
+      "name": "Cagayan Valley",
+      "cities": [
+        "Cauayan",
+        "Ilagan",
+        "Santiago",
+        "Tuguegarao"
+      ]
+    },
+    "Region III": {
+      "name": "Central Luzon",
+      "cities": [
+        "Angeles",
+        "Balanga",
+        "Baliwag",
+        "Cabanatuan",
+        "Gapan",
+        "Malolos",
+        "Meycauayan",
+        "Muñoz",
+        "Olongapo",
+        "Palayan",
+        "San Fernando (Pampanga)",
+        "San Jose",
+        "San Jose del Monte",
+        "Tarlac City"
+      ]
+    },
+    "Region IV-A": {
+      "name": "CALABARZON",
+      "cities": [
+        "Antipolo",
+        "Bacoor",
+        "Batangas City",
+        "Biñan",
+        "Cabuyao",
+        "Calamba",
+        "Carmona",
+        "Cavite City",
+        "Dasmariñas",
+        "General Trias",
+        "Imus",
+        "Lipa",
+        "Lucena",
+        "San Pablo",
+        "San Pedro",
+        "Santa Rosa",
+        "Santo Tomas",
+        "Tagaytay",
+        "Tanauan",
+        "Tayabas",
+        "Trece Martires"
+      ]
+    },
+    "Region IV-B": {
+      "name": "MIMAROPA",
+      "cities": [
+        "Calapan",
+        "Puerto Princesa",
+        "Roxas (Palawan)",
+        "San Jose (Occidental Mindoro)"
+      ]
+    },
+    "Region V": {
+      "name": "Bicol Region",
+      "cities": [
+        "Iriga",
+        "Legazpi",
+        "Ligao",
+        "Masbate City",
+        "Naga",
+        "Sorsogon City",
+        "Tabaco"
+      ]
+    },
+    "CAR": {
+      "name": "Cordillera Administrative Region",
+      "cities": [
+        "Baguio",
+        "Tabuk",
+        "Bangued",
+        "La Trinidad"
+      ]
+    }
+  }
+  
