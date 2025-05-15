@@ -254,6 +254,7 @@ footer {
   padding: 15px 20px;
   width: 100%;
   z-index: 1000;
+  font-family: 'Raleway', sans-serif;
 }
 
 .footer-inner {
@@ -265,19 +266,47 @@ footer {
   flex-wrap: wrap;
   font-size: 0.9rem;
   color: #333;
+  position: relative;
 }
 
 .footer-logo {
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: #5ba034;
   text-decoration: none;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto;
+}
+
+.footer-social {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-social a {
+  color: #333;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.footer-social a:hover {
+  color: #5ba034;
 }
 
 @media (max-width: 768px) {
   .footer-inner {
     flex-direction: column;
     text-align: center;
+  }
+
+  .footer-right {
+    margin-left: 0;
+    flex-direction: column;
     gap: 10px;
   }
 }
