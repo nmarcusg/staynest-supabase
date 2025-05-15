@@ -7,56 +7,121 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../CSS/property.css">
+    <link rel="stylesheet" href="../CSS/navbar.css">
 
     <title>Staynest | Property</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+    <header id="header" class="site-header">
+      <div class="navbar">
+        <div class="navbar-left">
+          <a href="#" class="logo">StayNest</a>
+        </div>
+        <div class="navbar-middle">
+          <div class="search-bar">
+            <input type="text" placeholder="Search properties...">
+            <button type="submit" class="search-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="navbar-right">
+          <nav class="main-nav">
+            <ul>
+              <li><a href="../HTML/content.html">Listings</a></li>
+              <li><a href="../HTML/about.html">About</a></li>
+              <li><a href="#" id="logInOut">Log In</a></li>
+            </ul>
+          </nav>
+          <button class="mobile-menu-button">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
     <main>
         <div class="container">
-            <div class="heading">
-                <h1 id="propertyName">Placeholder Title</h1>
-            </div>
-
-            <div class="property-details">
-                <div class="property-image" id="imageContainer">
+          <div class="heading">
+            <h1 id="propertyName">Placeholder Title</h1>
+            <p id="propertyLocation">Placeholder Location</p>
+          </div>
+      
+          <div class="property-details">
+            <div class="left-column">
+              <div class="property-image carousel">
+                <button class="carousel-btn prev">‹</button>
+                <div class="carousel-track-container">
+                  <div class="carousel-track" id="carouselTrack">
+                    <!-- Images will be inserted here via JS -->
+                  </div>
                 </div>
-                <div class="property-info">
-                    <p id="propertyDescription">Placeholder Description</p>
-                    <p id="propertyLocation">Placeholder Location</p>
-                    <p id="propertyPrice">Placeholder Price</p>
-                </div>
-                <div class="property-amenities">
-                    <h2>Amenities</h2>
-                    <ul id="amenitiesList">
-                    </ul>
-                </div>
-                
-
-        </div>
-            <div class="owner-info">
-                <h2>Owner Information</h2>
-                <div class="owner-image">
-                </div>
+                <button class="carousel-btn next">›</button>
+                <!-- Indicators will be inserted here via JS -->
+              </div>
+              
+              <div class="property-info">
+                <p id="propertyDescription">Placeholder Description</p>
+                <p id="propertyPrice">Placeholder Price</p>
+              </div>
+      
+              <div class="owner-info">
+                <h2>Hosted by</h2>
                 <div class="owner-details">
-                    <img src="" alt="" id="ownerAvatar">
+                  <img src="https://via.placeholder.com/64" alt="" id="ownerAvatar">
+                  <div>
                     <p id="ownerName">Placeholder Owner Name</p>
-                    <p id="ownerUsername">Placeholder username</p>
+                    <p id="ownerUsername">@placeholder</p>
+                  </div>
                 </div>
-            </div>
-
-            <div class="property-reviews">
+              </div>
+      
+              <div class="property-amenities">
+                <h2>Amenities</h2>
+                <ul id="amenitiesList">
+                  <li>Placeholder Amenity 1</li>
+                  <li>Placeholder Amenity 2</li>
+                </ul>
+              </div>
+      
+              <div class="property-reviews">
                 <h2>Reviews</h2>
                 <ul id="reviewsList">
-                    <li>Placeholder Review 1</li>
-                    <li>Placeholder Review 2</li>
-                    <li>Placeholder Review 3</li>
+                  <li>Placeholder Review 1</li>
+                  <li>Placeholder Review 2</li>
+                  <li>Placeholder Review 3</li>
                 </ul>
+              </div>
             </div>
-
-            <button id="reserveButton"></button>
+      
+          
+            <div class="right-column">
+              <div class="booking-box">
+                <div class="price-per-night" id="propertyPriceBox">Placeholder Text</div>
+                <div class="calendar">
+                  <form>
+                    <label for="checkin">Check-in</label>
+                    <input type="date" id="checkin" name="checkin" required>
+                
+                    <label for="checkout">Check-out</label>
+                    <input type="date" id="checkout" name="checkout" required>
+                
+                    <label for="guests">Guests</label>
+                    <input type="number" id="guests" name="guests" min="1" value="1" required>
+                  </form>
+                </div>
+                <button id="reserveButton" disabled>Loading...</button> 
+              </div>
+            </div>
+          </div>
         </div>
-    </main>
-    <script type="module" src="../JS/property.js" defer></script>
+      </main>
+    <script src="../JS/property.js" defer></script>
+    <script src="../JS/navbar.js" defer></script>
 </body>
-</html>

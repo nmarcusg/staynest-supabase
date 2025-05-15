@@ -1,8 +1,6 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-
 const supabaseUrl = "https://wkbljryfnphbthnfbghj.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrYmxqcnlmbnBoYnRobmZiZ2hqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU2MzQyODEsImV4cCI6MjA2MTIxMDI4MX0.W8Tcg8whyMUqS0yvOenEaNU6wrFzLr1vWNRhJ6rNOac";
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 const urlParams = new URLSearchParams(window.location.search);
 const propertyId = urlParams.get('id');
@@ -47,8 +45,7 @@ async function loadPropertyDetails() {
         
         console.log("Full property data:", property);
 
-
-        console.log("Property images:", images);
+        console.log("Property images:", images.image_path);
 
         const { data: ownerData, error: ownerError } = await supabase
             .from('profiles')
@@ -66,20 +63,16 @@ async function loadPropertyDetails() {
         const titleElement = document.getElementById('propertyName');
         const locationElement = document.getElementById('propertyLocation');
         const rateElement = document.getElementById('propertyPrice');
+        document.getElementById('propertyPriceBox').textContent = rateElement.textContent;  
         const descriptionElement = document.getElementById('propertyDescription');
         const ownerElement = document.getElementById('ownerName');
         const ownerUsername = document.getElementById('ownerUsername');
-        const amenityList = document.getElementById('amenitiesList');
+        
         titleElement.textContent = property.title;
         locationElement.textContent = property.address?.city ?? "Unknown City";
         rateElement.textContent = `Php ${property.price_per_night} per Night`;
+        document.getElementById('propertyPriceBox').textContent = rateElement.textContent;
         descriptionElement.textContent = property.description ?? "No description available";
-
-        for (const amenity of property.amenities) {
-            const amenityElement = document.createElement('li');
-            amenityElement.textContent = amenity;
-            amenityList.appendChild(amenityElement);
-        }
 
         if (ownerData) {
             ownerElement.textContent = `${ownerData.name_first} ${ownerData.name_last}`;
@@ -91,29 +84,63 @@ async function loadPropertyDetails() {
                 avatarImg.srcset = ownerData.avatar_url;
             }
         }
-
-        const imgContainer = document.getElementById('imageContainer');
+        
+        const track = document.getElementById('carouselTrack');
+        track.innerHTML = '';
 
         if (images && images.length > 0) {
-            for (const image of images) {
-                const img = document.createElement('img');
-                img.src = image.image_path;
-                img.alt = property.title;
-                img.style.width = '100%';
-                img.style.height = 'auto';
-                console.log(img)
-                imgContainer.appendChild(img);
-            }
+            images.forEach(img => {
+                const imgElem = document.createElement('img');
+                imgElem.src = `https://wkbljryfnphbthnfbghj.supabase.co/storage/v1/object/public/property-images/property/${property.property_id}/${img.image_path}`;
+                imgElem.alt = property.title;
+                track.appendChild(imgElem);
+            });
         } else {
-            console.warn(`No images found for property ID ${propertyId}`);
-            const placeholderImg = document.createElement('img');
-            placeholderImg.src = 'https://via.placeholder.com/150';
-            placeholderImg.alt = 'No image available';
-            placeholderImg.style.width = '100%';
-            placeholderImg.style.height = 'auto';
-            imgContainer.appendChild(placeholderImg);
+            for (let i = 0; i < 5; i++) {
+                const placeholderImg = document.createElement('img');
+                placeholderImg.src = 'https://placehold.co/1600x900';
+                placeholderImg.alt = 'Placeholder Image';
+                track.appendChild(placeholderImg);
+            }
         }
 
+        // Simple carousel logic
+        const prevButton = document.querySelector('.carousel-btn.prev');
+        const nextButton = document.querySelector('.carousel-btn.next');
+        let currentSlide = 0;
+
+        nextButton.addEventListener('click', () => {
+            if (currentSlide < track.children.length - 1) {
+                currentSlide++;
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+        });
+
+        
+        const imagesLoaded = Array.from(track.querySelectorAll('img')).map(img => {
+            return new Promise(resolve => {
+                if (img.complete) resolve();
+                else img.onload = resolve;
+            });
+        });
+
+        Promise.all(imagesLoaded).then(() => {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        });
+
+        
+
+
+        
+
+        
     } catch (error) {
         console.error("Error loading property details:", error);
     }

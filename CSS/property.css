@@ -9,10 +9,276 @@ html {
 }
 
 .placeholder-img {
-    max-width: 800px;
-    min-height: 400px;
+    max-width: 50rem; /* 800px / 16 = 50rem */
+    min-height: 25rem; /* 400px / 16 = 25rem */
     background-color: black;
     display: flex;
     justify-content: center;
+}
 
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+  
+.container {
+    max-width: 75rem; /* 1200px / 16 = 75rem */
+    margin: 0 auto;
+    padding: 1.875rem 1.25rem; /* 30px / 16 = 1.875rem, 20px / 16 = 1.25rem */
+}
+  
+.heading h1 {
+    font-size: 1.75rem; /* 28px / 16 = 1.75rem */
+    margin-bottom: 0.3125rem; /* 5px / 16 = 0.3125rem */
+}
+  
+.heading p {
+    color: #717171;
+    font-size: 1rem; /* 16px / 16 = 1rem */
+    margin-top: 0;
+}
+  
+.property-details {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.875rem; /* 30px / 16 = 1.875rem */
+    margin-top: 1.25rem; /* 20px / 16 = 1.25rem */
+}
+  
+.property-image {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0.625rem; /* 10px / 16 = 0.625rem */
+    margin-bottom: 2rem;
+    height: 25rem; /* 400px / 16 = 25rem */
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px / 16 = 0.25rem, 8px / 16 = 0.5rem */
+}
+  
+.property-image img {
+    width: 100%;
+    border-radius: 0.625rem; /* 10px / 16 = 0.625rem */
+    object-fit: cover;
+}
+  
+.property-info {
+    margin-top: 1.25rem; /* 20px / 16 = 1.25rem */
+}
+  
+.property-info p {
+    margin: 0.625rem 0; /* 10px / 16 = 0.625rem */
+    font-size: 1rem; /* 16px / 16 = 1rem */
+}
+  
+.owner-info {
+    margin-top: 1.875rem; /* 30px / 16 = 1.875rem */
+    padding: 1.25rem; /* 20px / 16 = 1.25rem */
+    background-color: #f8f8f8;
+    border-radius: 0.75rem; /* 12px / 16 = 0.75rem */
+}
+  
+.owner-details {
+    display: flex;
+    gap: 0.625rem; /* 10px / 16 = 0.625rem */
+    align-items: center;
+}
+  
+.owner-details img {
+    width: 4rem; /* 64px / 16 = 4rem */
+    height: 4rem; /* 64px / 16 = 4rem */
+    border-radius: 50%;
+    object-fit: cover;
+}
+  
+.property-amenities, .property-reviews {
+    margin-top: 1.875rem; /* 30px / 16 = 1.875rem */
+    padding: 1.25rem; /* 20px / 16 = 1.25rem */
+    background-color: #f8f8f8;
+    border-radius: 0.75rem; /* 12px / 16 = 0.75rem */
+}
+  
+.property-amenities ul, .property-reviews ul {
+    margin: 0;
+    padding-left: 1.25rem; /* 20px / 16 = 1.25rem */
+}
+  
+.booking-box {
+    border: 0.0625rem solid #e4e4e4; /* 1px / 16 = 0.0625rem */
+    padding: 1.25rem; /* 20px / 16 = 1.25rem */
+    border-radius: 0.75rem; /* 12px / 16 = 0.75rem */
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.05); /* 4px / 16 = 0.25rem, 16px / 16 = 1rem */
+    background-color: #fff;
+    position: sticky;
+    top: 6.25rem; /* 100px / 16 = 6.25rem */
+}
+  
+.booking-box .price-per-night {
+    font-size: 1.125rem; /* 18px / 16 = 1.125rem */
+    font-weight: bold;
+    margin-bottom: 0.9375rem; /* 15px / 16 = 0.9375rem */
+}
+  
+.booking-box .calendar div {
+    margin-bottom: 0.3125rem; /* 5px / 16 = 0.3125rem */
+    font-size: 0.875rem; /* 14px / 16 = 0.875rem */
+}
+  
+#reserveButton {
+    background-color: #5ba034;
+    color: white;
+    padding: 0.75rem; /* 12px / 16 = 0.75rem */
+    border: none;
+    border-radius: 0.5rem; /* 8px / 16 = 0.5rem */
+    cursor: pointer;
+    font-size: 1rem; /* 16px / 16 = 1rem */
+    width: 100%;
+    margin-top: 0.9375rem; /* 15px / 16 = 0.9375rem */
+    transition: background 0.3s ease;
+}
+  
+#reserveButton:hover:not(:disabled) {
+    background-color: #6fbb43;
+}
+  
+#reserveButton:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+  
+.calendar form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+  
+.calendar label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #333;
+}
+  
+.calendar input[type="date"],
+.calendar input[type="number"] {
+    padding: 0.6rem 0.8rem;
+    font-size: 1rem;
+    border: 0.0625rem solid #ccc; /* 1px / 16 = 0.0625rem */
+    border-radius: 0.75rem; /* 12px / 16 = 0.75rem */
+    outline: none;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+  
+.calendar input:focus {
+    border-color: #5ea039;
+    box-shadow: 0 0 0 0.1875rem rgba(75, 173, 30, 0.2); /* 3px / 16 = 0.1875rem */
+} 
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%; /* Updated to full width */
+    border-radius: 0.625rem; /* 10px / 16 = 0.625rem */
+    margin-bottom: 2rem;
+    height: 25rem; /* 400px / 16 = 25rem */
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px / 16 = 0.25rem, 8px / 16 = 0.5rem */
+}
+
+.carousel-track-container {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-container {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    flex-shrink: 0;
+}
+
+.carousel-track img {
+    width: 100%;
+    flex-shrink: 0;
+    object-fit: cover;
+    height: 100%;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    font-size: 2rem;
+    width: 2.5rem; /* 40px / 16 = 2.5rem */
+    height: 2.5rem; /* 40px / 16 = 2.5rem */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+    color: #333;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.carousel-btn.prev {
+    left: 0.625rem; /* 10px / 16 = 0.625rem */
+}
+
+.carousel-btn.next {
+    right: 0.625rem; /* 10px / 16 = 0.625rem */
+}
+
+/* Indicators for the carousel */
+.carousel-indicators {
+    position: absolute;
+    bottom: 0.9375rem; /* 15px / 16 = 0.9375rem */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem; /* 8px / 16 = 0.5rem */
+    z-index: 10;
+}
+
+.carousel-indicator {
+    width: 0.625rem; /* 10px / 16 = 0.625rem */
+    height: 0.625rem; /* 10px / 16 = 0.625rem */
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-indicator.active {
+    background-color: white;
+    transform: scale(1.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 48rem) { /* 768px / 16 = 48rem */
+    .property-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .carousel {
+        height: 18.75rem; /* 300px / 16 = 18.75rem */
+    }
 }
