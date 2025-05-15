@@ -254,7 +254,7 @@ footer {
   padding: 15px 20px;
   width: 100%;
   z-index: 1000;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .footer-inner {
@@ -274,7 +274,10 @@ footer {
   font-size: 1.5rem;
   color: #5ba034;
   text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+  letter-spacing: 0.5px;
 }
+
 
 .footer-right {
   display: flex;
