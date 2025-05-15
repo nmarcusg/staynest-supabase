@@ -67,7 +67,7 @@ async function loadPropertyDetails() {
         const descriptionElement = document.getElementById('propertyDescription');
         const ownerElement = document.getElementById('ownerName');
         const ownerUsername = document.getElementById('ownerUsername');
-        const amenitiesElement = document.getElementById('property-amenities');
+        const amenitiesElement = document.getElementById('amenitiesList');
 
         titleElement.textContent = property.title;
         locationElement.textContent = property.address?.city ?? "Unknown City";
@@ -88,15 +88,6 @@ async function loadPropertyDetails() {
         
         const track = document.getElementById('carouselTrack');
         track.innerHTML = '';
-
-        if (property.amenities) {
-            for (const amenity of property.amenities) {
-                const amenityItem = document.createElement('li');
-                amenityItem.textContent = amenity;
-                amenitiesElement.appendChild(amenityItem);
-            }
-        }
-
 
         if (images && images.length > 0) {
             images.forEach(img => {
@@ -145,6 +136,13 @@ async function loadPropertyDetails() {
             track.style.transform = `translateX(-${currentSlide * 100}%)`;
         });
 
+        if (property.amenities) {
+            for (const amenity of property.amenities) {
+                const amenityItem = document.createElement('li');
+                amenityItem.textContent = amenity;
+                amenitiesElement.appendChild(amenityItem);
+            }
+        }
 
         
     } catch (error) {
