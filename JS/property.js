@@ -91,8 +91,9 @@ async function loadPropertyDetails() {
         if (images && images.length > 0) {
             images.forEach(img => {
                 const imgElem = document.createElement('img');
-                imgElem.src = `https://wkbljryfnphbthnfbghj.supabase.co/storage/v1/object/public/property-images/property/${property.property_id}/${img.image_path}`;
+                imgElem.src = img.image_path;
                 imgElem.alt = property.title;
+                console.log(`Image URL: ${imgElem.src}`);
                 track.appendChild(imgElem);
             });
         } else {
