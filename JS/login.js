@@ -24,14 +24,14 @@ function switchForms(hideform, showform) {
     hideform.classList.add('fade');
 
     setTimeout(() => {
-       hideform.style.display = 'none';
-       showform.style.display = 'block';
+      hideform.style.display = 'none';
+      showform.style.display = 'flex';
+    }, 750);
 
-       setTimeout(() => {
-            showform.classList.remove('fade');
-            showform.classList.add('visible');
-       }, 500);
-    }, 500);
+    setTimeout(() => {
+      showform.classList.remove('fade');
+      showform.classList.add('visible');
+    }, 750);
 }
 
 showRegisterButton.addEventListener('click', () => switchForms(loginFormContainer, registerFormContainer));
