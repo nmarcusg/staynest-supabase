@@ -7,6 +7,40 @@
     <link rel="stylesheet" href="../CSS/host.css">
 </head>
 <body>
+    <header id="header" class="site-header">
+      <div class="navbar">
+        <div class="navbar-left">
+          <a href="../index.html" class="logo">StayNest</a>
+        </div>
+        <div class="navbar-middle">
+          <div class="search-bar">
+            <input type="text" placeholder="Search properties...">
+            <button type="submit" class="search-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="navbar-right">
+          <nav class="main-nav">
+            <ul>
+              <li><a href="../HTML/content.html">Listings</a></li>
+              <li><a href="../HTML/about.html">About</a></li>
+              <li><a href="../HTML/login.html" id="logInOut">Log In</a></li>
+              <li id="profile-image-container"></li>
+            </ul>
+          </nav>
+          <button class="mobile-menu-button">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+
     <div clas="host-wrapper">
 
         <div class="host-left">
@@ -53,6 +87,7 @@
                 <input type="text" id="property-zip" name="property-zip" required>
 
                 <label for="property-type">Property Type:</label>
+
                 <select id="property-type" name="property-type" required>
                 <option value="apartment">Apartment</option>
                 <option value="house">House</option>
