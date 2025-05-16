@@ -54,7 +54,7 @@ async function loadProperties() {
                 placeholderImg.src = 'https://via.placeholder.com/150';
                 placeholderImg.alt = 'No image available';
                 placeholderImg.style.width = '100%';
-                placeholderImg.style.height = 'auto';
+                placeholderImg.style.height = '100%';
                 imgContainer.appendChild(placeholderImg);
             }
 
