@@ -73,45 +73,6 @@ async function loadProperties() {
     }
 }
 
-const logInOut = document.getElementById('user-auth-button');
-
-
-supabase.auth.onAuthStateChange((event, session) => {
-    console.log(event);
-    console.log(session);
-    
-    const userInfoDiv = document.getElementById('user-email');
-    userInfoDiv.innerHTML = ''; // Clear previous content
-  
-    if (session?.user) {
-      console.log('User  is logged in:', session.user.email);
-      const emailParagraph = document.createElement('p');
-      emailParagraph.textContent = `You are logged in as: ${session.user.email}`;
-      userInfoDiv.appendChild(emailParagraph);
-
-      logInOut.textContent = 'Log Out';
-      logInOut.href = '#';
-    } else {
-      console.log('User  is not logged in');
-      logInOut.textContent = 'Log In';
-      logInOut.href = 'login.html';
-    }
-  });
-
-logInOut.addEventListener('click', async (event) => {
-    event.preventDefault();
-    if (logInOut.textContent === 'Log Out') {
-        const { error } = await supabase.auth.signOut();
-        if (error) {
-            console.error('Error signing out:', error.message);
-        } else {
-            console.log('User signed out');
-        }
-    } else {
-        window.location.href = 'login.html';
-    }
-});
-
 loadProperties();
 
 
