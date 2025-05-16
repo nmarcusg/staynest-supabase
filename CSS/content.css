@@ -96,7 +96,6 @@ html, body {
   color: #5ba034;
 }
 
-/* Mobile menu button */
 .mobile-menu-button {
   display: none;
   background: none;
@@ -114,7 +113,6 @@ html, body {
   transition: all 0.3s;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
   .navbar {
     flex-wrap: wrap;
@@ -167,32 +165,150 @@ html, body {
   }
 }
 
+h1 {
+    text-align: center;
+    margin: 2rem 0 1rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2b8a3e;
+    position: relative;
+    padding-bottom: 1rem;
+    background-color:#ffffff
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, #2b8a3e, #5c940d);
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+        margin: 1.5rem 0 0.5rem;
+    }
+    
+    h1::after {
+        width: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+        padding-bottom: 0.8rem;
+    }
+}
+
 .card-container {
     display: grid;
-    grid-template-columns: repeat(6, auto);
-    padding: 5rem;
-    flex-wrap: wrap;
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    padding: 2rem 5rem;
+    gap: 2rem;
+    background-color: #ffffff;
 }
 
 .card {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
-    flex: 200px;
+    gap: 0.8rem;
+    background: rgb(255, 255, 255);
+    border-radius: 1rem;
+    padding: 1.2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
     cursor: pointer;
 }
 
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
 .img-container {
-    background-color: whitesmoke;
-    border: 2px solid black;
-    border-radius: 1rem;
-    width: 250px;
-    height: 250px;
+    width: 100%;
+    height: 200px;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    background-color: #e9ecef;
+    border: 1px solid transparent;
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    position: relative;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .img-container img {
+    transform: scale(1.03);
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #212529;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .location {
-    font-size: .8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin: 0;
+}
+
+.location::before {
+    content: "📍";
+    font-size: 0.8rem;
+}
+
+.rate {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2b8a3e;
+    margin: 0;
+    margin-top: auto;
+    padding-top: 0.5rem;
+}
+
+.rate::before {
+    content: "₱";
+}
+
+@media (max-width: 1200px) {
+    .card-container {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .card-container {
+        padding: 1.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .card-container {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
 }
 
 footer {
