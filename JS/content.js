@@ -46,7 +46,7 @@ async function loadProperties() {
                 img.src = imagePath;               
                 img.alt = property.title;
                 img.style.width = '100%';
-                img.style.height = 'auto';
+                img.style.height = '100%';
                 imgContainer.appendChild(img);
             } else {
                 console.warn(`No images found for property ID ${property.property_id}`);
