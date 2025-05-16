@@ -51,11 +51,21 @@
 
     <div class="host-form-container">
         <form id="host-form" class="form">
+            <h2>Property Details</h2>
             <label for="property-name">Property Listing Title:</label>
             <input type="text" id="property-name" name="property-name" required>
 
             <label for="property-description">Description:</label>
             <textarea id="property-description" name="property-description" required></textarea>
+
+            <label for="property-image">Property Image:</label>
+            <input type="file" id="property-image" name="property-image" accept="image/*">
+            
+            <label for="bedroom-number">Bedrooms:</label>
+            <input type="number" id="property-bedroom" name="bedroom-number" min="1" max="20" required>
+
+            <label for="bathroom-number">Bathrooms:</label>
+            <input type="number" id="property-bathroom" name="bathroom-number" min="1" max="20" required>
 
             <h2>Address</h2>
 
@@ -74,15 +84,15 @@
             </div>
         
             <div id="property-region-container" class="property-container">
-                <label for="property-region">Province/Region:</label>
-                <select name="property-region" id="property-region-select" required></select>
-                <input type="text" id="property-region-input">
+                <label for="property-region-input">Province/Region:</label>
+                <select id="property-region-select" data-type="region"></select>
+                <input id="property-region-input" data-type="region" style="display:none">
             </div>
 
             <div id="property-city-container" class="property-container">
                 <label for="property-city">City/Municipality:</label>
-                <select name="property-city" id="property-city-select" required></select>
-                <input type="text" id="property-city-input">
+                <select id="property-city-select" data-type="city"></select>
+                <input id="property-city-input" data-type="city" style="display:none">
             </div>
 
             <label for="property-zip">Zip Code:</label>
@@ -101,21 +111,24 @@
         <input type="text" id="property-type-other" name="property-type-other" maxlength="30" placeholder="Please specify if other">
         <label for="property-amenities">Amenities:</label>
 
-        <div class="checkbox-group">
-            <input type="checkbox" id="wifi" name="property-amenities" value="wifi">
+        <div class="checkbox-group" id="amenity-container">
+            <input type="checkbox" id="wifi" name="property-amenities" value="Wifi">
             <label for="wifi">WiFi</label>
-            <input type="checkbox" id="parking" name="property-amenities" value="parking">
+            <input type="checkbox" id="parking" name="property-amenities" value="Parking">
             <label for="parking">Parking</label>
-            <input type="checkbox" id="pool" name="property-amenities" value="pool">
+            <input type="checkbox" id="pool" name="property-amenities" value="Pool">
             <label for="pool">Pool</label>
-            <input type="checkbox" id="gym" name="property-amenities" value="gym">
+            <input type="checkbox" id="gym" name="property-amenities" value="Gym">
             <label for="gym">Gym</label>
         </div>
 
-            <label for="property-price">Price per night:</label>
-            <input type="number" id="property-price" name="property-price" required>
+        <label for="add-amenity"></label>
+        <button type="button" id="add-amenity">Add Amenity</button>
+        
+        <label for="property-price">Price per night:</label>
+        <input type="number" id="property-price" name="property-price" required>
 
-            <button type="submit" class="custom-submit">Submit</button>
+        <button type="submit" class="custom-submit" id="host-form">Submit</button>
         </form>
     </div>
 </div>

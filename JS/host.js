@@ -27,8 +27,6 @@ const propertyType = document.getElementById('property-type');
 
 propertyType.addEventListener('change', () => {
     const selectedValue = propertyType.value;
-    console.log('Selected property type:', selectedValue);
-    console.log('Selected property type:', selectedValue);
     if (selectedValue === 'other') {
             document.getElementById('property-type-other').style.display = 'block';
     } else {
@@ -80,10 +78,6 @@ function handleCountryChange() {
     }
 };
 
-countryInput.addEventListener('input', handleCountryChange);
-countryInput.value = "Philippines";
-handleCountryChange();
-
 function getLuzonRegion() {
     fetch('../local-data/luzon-region.json')
         .then(response => response.json())
@@ -92,7 +86,6 @@ function getLuzonRegion() {
 }
 
 function dropdownRegion(data) {
-    console.log(regionSelect, citySelect);
 
     regionSelect.innerHTML = '<option value="">Select Region</option>';
     citySelect.innerHTML = '<option value="">Select City/Municipality</option>';
@@ -109,7 +102,6 @@ function dropdownRegion(data) {
         citySelect.innerHTML = '<option value="">Select City/Municipality</option>';
         if (selectedRegion) {
             const cities = data[selectedRegion].cities;
-            console.log(cities);
             for (const [key, name] of Object.entries(cities)) {
                 const option = document.createElement('option');
                 option.value = key;
@@ -121,11 +113,83 @@ function dropdownRegion(data) {
     });
 }
 
+countryInput.addEventListener('input', handleCountryChange);
+countryInput.value = "Philippines";
+handleCountryChange();
+
+const amenityCheckbox = document.getElementById('amenity-container');
+const addAmenityButton = document.getElementById('add-amenity');
+
+addAmenityButton.addEventListener('click', () => {
+    
+    if (document.querySelectorAll('input[name="property-amenities"]').length < 20) {
+    const blankAmenity = document.createElement('input');
+    blankAmenity.type = 'text';
+    blankAmenity.name = 'property-amenities';
+    blankAmenity.classList.add('custom-amenity');
+    blankAmenity.placeholder = 'Enter an amenity';
+    
+    amenityCheckbox.appendChild(blankAmenity);
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove';
+    removeButton.type = 'button';
+    removeButton.classList.add('remove-amenity');
+    removeButton.addEventListener('click', () => {
+        amenityCheckbox.removeChild(blankAmenity);
+        amenityCheckbox.removeChild(removeButton);
+    }
+    );
+    amenityCheckbox.appendChild(removeButton);
+    }
+    else {
+        alert("You can only add up to 20 amenities.");
+    }
+});
+
+
 const form = document.getElementById('host-form');
+
+
+
+
+
 
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    
+    const { data: { user } } = await supabase.auth.getUser();
 
+    const visibleRegion = document.querySelector('[data-type="region"]:not([style*="display: none"])');
+    const visibleCity = document.querySelector('[data-type="city"]:not([style*="display: none"])');
+    const selectedAmenities = [];
+
+    document.querySelectorAll('input[name="property-amenities"]:checked').forEach(cb => {
+    selectedAmenities.push(cb.value);
+    });
+
+    document.querySelectorAll('.custom-amenity').forEach(input => {
+        if (input.value.trim() !== '') {
+            selectedAmenities.push(input.value.trim());
+        }
+    }
+    );
+
+    const formData = {
+        owner_id : user.id,
+        title: document.getElementById('property-name').value,
+        description: document.getElementById('property-description').value,
+        price_per_night: document.getElementById('property-price').value,
+        address: {
+            country: document.getElementById('property-country').value,
+            region: visibleRegion,
+            city: visibleCity,
+            baranggay: document.getElementById('property-baranggay').value,
+            street: document.getElementById('property-street').value,
+        },
+        bedroom: document.getElementById('property-bedroom').value,
+        bathroom: document.getElementById('property-bathroom').value,
+        amenities: selectedAmenities,
+    }
+
+    console.log('Form data:', formData);
 });
