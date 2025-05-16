@@ -15,6 +15,7 @@
 </head>
 
 <body>
+  <!-- Header + Nav -->
   <header id="header" class="site-header">
     <div class="navbar">
       <div class="navbar-left">
@@ -36,7 +37,7 @@
           <ul>
             <li><a href="../HTML/content.html">Listings</a></li>
             <li><a href="about.html">About</a></li>
-            <li><a href="../HTML/host.html">Host</a></li>
+            <li><a href="../HTML/reserve.html">Reserve</a></li>
             <li><a href="#" id="logInOut">Log In</a></li>
           </ul>
         </nav>
@@ -54,7 +55,8 @@
     <div class="text-section">
       <h2>Heading</h2>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
-      <button class="button">Button</button>
+      <a href="../HTML/content.html" class="book-now-btn">See Listings</a>
+
     </div>
     <div class="image-section">
       <img
@@ -80,6 +82,53 @@
     </div>
   </div>
 
+  <!-- Recommended Places -->
+  <div class="recommended-container">
+    <h2>Recommended Places:</h2>
+    <div class="recommended-row">
+      <div class="recommended-column">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/5958da62d2b857c0a9d740fb/1527209173268-2PG6WUFI00GVAKMFBFUU/pool+lv.jpg?format=1000w"
+          alt="img1" onclick="myFunction(this);">
+      </div>
+      <div class="recommended-column">
+        <img
+          src="https://a0.muscache.com/im/pictures/hosting/Hosting-1047064368753714857/original/76a33482-0207-41f5-802f-4c63135a18cb.jpeg?im_w=1440"
+          alt="img2" onclick="myFunction(this);">
+      </div>
+      <div class="recommended-column">
+        <img
+          src="https://a0.muscache.com/im/pictures/miso/Hosting-887734713881488264/original/ab6fc3c0-4ffe-46af-b26a-cba2715b0583.jpeg?im_w=1200"
+          alt="img3" onclick="myFunction(this);">
+      </div>
+      <div class="recommended-column">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/5958da62d2b857c0a9d740fb/1527209173268-2PG6WUFI00GVAKMFBFUU/pool+lv.jpg?format=1000w"
+          alt="img4" onclick="myFunction(this);">
+      </div>
+    </div>
+  </div>
+
+  <div class="expanded-container" id="expandedContainer">
+    <div class="expanded-left">
+      <div class="expanded-img-wrapper">
+        <img id="expandedImg" alt="Expanded View">
+        <div class="image-overlay" id="imageOverlay"></div>
+      </div>
+    </div>
+    <div class="expanded-right">
+      <h3 id="imgTitle">Title 1</h3>
+      <p id="imgDescription">
+        lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.
+      </p>
+      <a href="../HTML/reserve.html" class="book-now-btn">Book Now</a>
+
+    </div>
+  </div>
+
+
+
+  <!-- Footer -->
   <footer>
     <div class="footer-inner">
       <a href="index.html" class="footer-logo">StayNest</a>
@@ -94,6 +143,57 @@
     </div>
   </footer>
 
+  <script>
+    const descriptions = {
+      img1: {
+        title: "Title 1",
+        text: "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibusasd."
+      },
+      img2: {
+        title: "Title 2",
+        text: "lorem ipsum dolor sit amet consectetuasdasdr adipisicing elit. Quisquam, voluptatibus."
+      },
+      img3: {
+        title: "Title 3",
+        text: "lorem ipsum dolor asdasdsit amet consectetur adipisicing elit. Quisquam, voluptatibus."
+      },
+      img4: {
+        title: "Title 4",
+        text: "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquasdasdam, voluptatibus."
+      }
+    };
+
+    function myFunction(imgs) {
+      const expandImg = document.getElementById("expandedImg");
+      const imgTitle = document.getElementById("imgTitle");
+      const imgDescription = document.getElementById("imgDescription");
+      const overlay = document.getElementById("imageOverlay");
+
+      const key = imgs.alt.trim();
+      const info = descriptions[key] || {
+        title: "Recommended Place",
+      };
+
+      expandImg.classList.add("fade-out");
+      overlay.classList.add("fade-active");
+
+      setTimeout(() => {
+        expandImg.src = imgs.src;
+        imgTitle.textContent = info.title;
+        imgDescription.textContent = info.text;
+
+        expandImg.classList.remove("fade-out");
+        overlay.classList.remove("fade-active");
+      }, 300);
+    }
+
+    window.onload = function () {
+      const firstImg = document.querySelector(".recommended-column img");
+      if (firstImg) {
+        myFunction(firstImg);
+      }
+    };
+  </script>
 
 </body>
 

@@ -4,85 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Host</title>
-    <link rel="stylesheet" href="../CSS/host.css">
+    <link rel="stylesheet" href="/CSS/host.css">
 </head>
 <body>
-    <div clas="host-wrapper">
+    
+<div class="host-wrapper">
 
-        <div class="host-left">
-            <h1>Host your own property</h1>
-        </div>
+    <div class="host-left">
+        <h1>Host your own property</h1>
+    </div>
 
-        <div class="host-form-container"></div>
-            <form id="host-form" class="form">
-                <label for="property-name">Property Listing Title:</label>
-                <input type="text" id="property-name" name="property-name" required>
+    <div class="host-form-container"></div>
+        <form id="host-form" class="form">
+            <label for="property-name">Property Listing Title:</label>
+            <input type="text" id="property-name" name="property-name" required>
 
-                <label for="property-description">Description:</label>
-                <textarea id="property-description" name="property-description" required></textarea>
+            <label for="property-description">Description:</label>
+            <textarea id="property-description" name="property-description" required></textarea>
 
-                <h2>Address</h2>
+            <h2>Address</h2>
 
-                <label for="property-country">Country:</label>
-                <input type="text" id="property-country" name="property-country" required>
+            <label for="property-country">Country:</label>
+            <input type="text" id="property-country" name="property-country" required>
 
-                <label for="property-street">Street:</label>
-                <input type="text" id="property-street"  name="property-street" required>
+            <label for="property-street">Street:</label>
+            <input type="text" id="property-street"  name="property-street" required>
 
-                <label for="property-number">Street Number:</label>
-                <input type="text" id="property-number" name="property-number" required>
+            <label for="property-number">Street Number:</label>
+            <input type="text" id="property-number" name="property-number" required>
 
-                <div id="property-baranggay-container" class="property-container">
-                    <label for="property-baranggay">Baranggay:</label>
-                    <input type="text" id="property-baranggay" name="property-baranggay">
-                </div>
+            <div id="property-baranggay-container" class="property-container">
+                <label for="property-baranggay">Baranggay:</label>
+                <input type="text" id="property-baranggay" name="property-baranggay">
+            </div>
         
-                <div id="property-region-container" class="property-container">
-                    <label for="property-region">Province/Region:</label>
-                    <select name="property-region" id="property-region-select" required></select>
-                    <input type="text" id="property-region-input">
-                </div>
+            <div id="property-region-container" class="property-container">
+                <label for="property-region">Province/Region:</label>
+                <select name="property-region" id="property-region-select" required></select>
+                <input type="text" id="property-region-input">
+            </div>
 
-                <div id="property-city-container" class="property-container">
-                    <label for="property-city">City/Municipality:</label>
-                    <select name="property-city" id="property-city-select" required></select>
-                    <input type="text" id="property-city-input">
-                </div>
+            <div id="property-city-container" class="property-container">
+                <label for="property-city">City/Municipality:</label>
+                <select name="property-city" id="property-city-select" required></select>
+                <input type="text" id="property-city-input">
+            </div>
 
-                <label for="property-zip">Zip Code:</label>
-                <input type="text" id="property-zip" name="property-zip" required>
+            <label for="property-zip">Zip Code:</label>
+            <input type="text" id="property-zip" name="property-zip" required>
 
-                <label for="property-type">Property Type:</label>
-                <select id="property-type" name="property-type" required>
+            <label for="property-type">Property Type:</label>
+            <select id="property-type" name="property-type" required>
                 <option value="apartment">Apartment</option>
                 <option value="house">House</option>
                 <option value="condo">Condo</option>
                 <option value="townhouse">Townhouse</option>
                 <option value="villa">Villa</option>
                 <option value="other">Others</option>
-                </select>
+            </select>
 
-                <input type="text" id="property-type-other" name="property-type-other" maxlength="30" placeholder="Please specify if other">
-                <label for="property-amenities">Amenities:</label>
+        <input type="text" id="property-type-other" name="property-type-other" maxlength="30" placeholder="Please specify if other">
+        <label for="property-amenities">Amenities:</label>
 
-            <div class="checkbox-group">
-                <input type="checkbox" id="wifi" name="property-amenities" value="wifi">
-                <label for="wifi">WiFi</label>
-                <input type="checkbox" id="parking" name="property-amenities" value="parking">
-                <label for="parking">Parking</label>
-                <input type="checkbox" id="pool" name="property-amenities" value="pool">
-                <label for="pool">Pool</label>
-                <input type="checkbox" id="gym" name="property-amenities" value="gym">
-                <label for="gym">Gym</label>
-            </div>
-
-                <label for="property-price">Price per night:</label>
-                <input type="number" id="property-price" name="property-price" required>
-
-                <button type="submit">Submit</button>
-            </form>
+        <div class="checkbox-group">
+            <input type="checkbox" id="wifi" name="property-amenities" value="wifi">
+            <label for="wifi">WiFi</label>
+            <input type="checkbox" id="parking" name="property-amenities" value="parking">
+            <label for="parking">Parking</label>
+            <input type="checkbox" id="pool" name="property-amenities" value="pool">
+            <label for="pool">Pool</label>
+            <input type="checkbox" id="gym" name="property-amenities" value="gym">
+            <label for="gym">Gym</label>
         </div>
+
+            <label for="property-price">Price per night:</label>
+            <input type="number" id="property-price" name="property-price" required>
+
+            <button type="submit">Submit</button>
+        </form>
     </div>
+</div>
 
     <script type="module" src="../JS/host.js" defer></script>
 </body>
