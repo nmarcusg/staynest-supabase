@@ -11,20 +11,23 @@ html {
 
 body {
     background-color: #f5f5f5;
+    font-family: sans-serif;
+    padding-top: 4rem;
     display: flex;
-    align-items: center;
     justify-content: center;
     min-height: 100vh;
-    padding: 2rem;
 }
 
 .host-wrapper {
     display: flex;
+    flex-direction: row;
     max-width: 80rem;
     width: 100%;
     background: #fff;
+    border-radius: 1rem;
     box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    margin: 2rem auto;
 }
 
 .host-left {
@@ -79,15 +82,25 @@ textarea {
 }
 
 .checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem 1rem;
     margin-top: 0.5rem;
+    align-items: center;
 }
 
 .checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-weight: normal;
     color: #333;
+}
+
+
+.checkbox-group input[type="checkbox"] {
+    accent-color: #396022;
+    transform: scale(1.2);
 }
 
 button[type="submit"] {
