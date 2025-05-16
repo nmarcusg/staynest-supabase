@@ -10,6 +10,8 @@ const cityInput = document.getElementById('property-city-input');
 const regionSelect = document.getElementById('property-region-select');
 const regionInput = document.getElementById('property-region-input');
 
+
+//auth check
 supabase.auth.getSession().then(({ data: { session } }) => {
     if (session?.user) {
         console.log('User is logged in:', session.user.email);
@@ -19,8 +21,9 @@ supabase.auth.getSession().then(({ data: { session } }) => {
     }
 });
 
-const propertyType = document.getElementById('property-type');
 
+//property type check
+const propertyType = document.getElementById('property-type');
 
 propertyType.addEventListener('change', () => {
     const selectedValue = propertyType.value;
@@ -33,8 +36,9 @@ propertyType.addEventListener('change', () => {
     }
 });
 
-const countryInput = document.getElementById('property-country');
 
+//country/region check
+const countryInput = document.getElementById('property-country');
 countryInput.value = "philippines";
 
 function handleCountryChange() {
@@ -122,27 +126,6 @@ const form = document.getElementById('host-form');
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-
-    console.log('Form Data:', data);
-
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (user) {
-        data.user_id = user.id;
-        console.log('User ID:', user.id);
-    }
-
-    const { error } = await supabase
-        .from('property')
-        .insert([data]);
-
-    if (error) {
-        console.error('Error inserting data:', error);
-    } else {
-        console.log('Data inserted successfully');
-        window.location.href = './index.html';
-    }
+    
 
 });
