@@ -85,6 +85,7 @@ function getLuzonRegion() {
         .catch(error => console.error('Error fetching region data:', error));
 }
 
+//dropdown region population
 function dropdownRegion(data) {
 
     regionSelect.innerHTML = '<option value="">Select Region</option>';
@@ -113,6 +114,7 @@ function dropdownRegion(data) {
     });
 }
 
+//country input check
 countryInput.addEventListener('input', handleCountryChange);
 countryInput.value = "Philippines";
 handleCountryChange();
@@ -120,6 +122,7 @@ handleCountryChange();
 const amenityCheckbox = document.getElementById('amenity-container');
 const addAmenityButton = document.getElementById('add-amenity');
 
+//add custom amenities, up to 20 including predefined amenities
 addAmenityButton.addEventListener('click', () => {
     
     if (document.querySelectorAll('input[name="property-amenities"]').length < 20) {
@@ -146,21 +149,48 @@ addAmenityButton.addEventListener('click', () => {
     }
 });
 
+//additional images
 
+const propertyImgContainer = document.getElementById('property-image-container');
+const addImageButton = document.getElementById('add-image');
+
+//add images, up to 10
+addImageButton.addEventListener('click', () => {
+    if (propertyImgContainer.querySelectorAll('input.property-image').length < 10) {
+        const imageInput = document.createElement('input');
+        imageInput.type = 'file';
+        imageInput.classList.add('property-image');
+        imageInput.name = 'property-image';
+        imageInput.accept = 'image/*';
+        imageInput.required = true;
+        
+        propertyImgContainer.appendChild(imageInput);
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.type = 'button';
+        removeButton.classList.add('remove-image');
+        removeButton.addEventListener('click', () => {
+            propertyImgContainer.removeChild(imageInput);
+            propertyImgContainer.removeChild(removeButton);
+        }
+        );
+        propertyImgContainer.appendChild(removeButton);
+    }
+    else {
+        alert("You can only add up to 10 images.");
+    }
+})
+
+//form submission
 const form = document.getElementById('host-form');
 
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-
-    // const imageFile = document.getElementById('property-image').files[0];
-    // const fileExt = imageFile.name.split('.').pop();
-    // const fileName = `property-{propertyId}`
-    // console.log(fileExt);
-    // console.log(imageFile);
-
+    //user auth check
     const { data: { user } } = await supabase.auth.getUser();
 
+    //form data fetching
     const visibleRegion = document.querySelector('[data-type="region"]:not([style*="display: none"])')?.value || '';
     const visibleCity = document.querySelector('[data-type="city"]:not([style*="display: none"])')?.value || '';
     const selectedAmenities = [];
@@ -176,6 +206,7 @@ form.addEventListener('submit', async (event) => {
     }
     );
 
+    //formData object initialization
     const formData = {
         owner_id : user.id,
         title: document.getElementById('property-name').value,
@@ -193,6 +224,7 @@ form.addEventListener('submit', async (event) => {
         amenities: selectedAmenities,
     }
 
+    //insert into supabase 'property' table
     const { data: property, error } = await supabase
     .from('properties')
     .insert([
@@ -200,7 +232,44 @@ form.addEventListener('submit', async (event) => {
     ])
     .select()
 
-    console.log('Form data:', formData);
-    console.log('Property:', property);
-    console.log('Error:', error);
-});
+    if (error) {
+        console.log("error: ", error);
+    } else {
+        console.log("success: ", property);
+    }
+
+    //get property id for image upload
+    const propertyId = property[0].property_id;
+    
+    const imageInputs = document.querySelectorAll('.property-image');
+    console.log('Image inputs found:', imageInputs.length);
+    imageInputs.forEach((input, i) => {
+    console.log(`Input #${i+1} has ${input.files.length} file(s) selected`);
+    });
+
+    //image upload
+    const imageFiles = document.querySelectorAll('.property-image');
+
+    for (const image of imageFiles){
+        const file = image.files[0];
+        if (!file) continue;
+
+        const fileExt = file.name.split('.').pop();
+        const fileName = `property-${propertyId}-${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+        const filePath = `properties/${propertyId}/${fileName}`;
+        console.log(fileName);
+        console.log(fileExt);
+
+        const { data: uploadData, error: uploadError } = await supabase.storage
+            .from('property-images')
+            .upload(filePath, file);
+        if (uploadError) {
+            console.error('Error uploading image:', uploadError.message);
+            return;
+        }
+        console.log('Image uploaded successfully:', uploadData);
+    }
+
+    alert('Property added successfully!');
+
+ });
