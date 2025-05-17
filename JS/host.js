@@ -249,17 +249,17 @@ form.addEventListener('submit', async (event) => {
 
     //image upload
     const imageFiles = document.querySelectorAll('.property-image');
+    let isPrimaryImage = true;
 
-    for (const image of imageFiles){
+    for (const image of imageFiles){ //cycle to each nodelist of input elements
         const file = image.files[0];
         if (!file) continue;
 
         const fileExt = file.name.split('.').pop();
         const fileName = `property-${propertyId}-${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
         const filePath = `properties/${propertyId}/${fileName}`;
-        console.log(fileName);
-        console.log(fileExt);
 
+        //upload to storage
         const { data: uploadData, error: uploadError } = await supabase.storage
             .from('property-images')
             .upload(filePath, file);
@@ -267,7 +267,29 @@ form.addEventListener('submit', async (event) => {
             console.error('Error uploading image:', uploadError.message);
             return;
         }
-        console.log('Image uploaded successfully:', uploadData);
+        
+        //get image url
+        const { data } = supabase
+            .storage
+            .from('property-images')
+            .getPublicUrl(uploadData.path);
+
+        const imageUrl = data.publicUrl;
+
+        //upload image data to property_images table
+        const { data: ImageRow, error: imgError} = await supabase
+            .from('property_images')
+            .insert([{
+                property_id: propertyId,
+                image_path: imageUrl,
+                is_primary: isPrimaryImage
+            }]);
+        if (imgError) {
+            console.error('Error inserting image data:', imgError.message);
+            return;
+        }
+        console.log('Image data inserted successfully:', data);
+        isPrimaryImage = false; // first image is primary
     }
 
     alert('Property added successfully!');
