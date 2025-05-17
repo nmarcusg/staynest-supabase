@@ -159,8 +159,8 @@ form.addEventListener('submit', async (event) => {
 
     const { data: { user } } = await supabase.auth.getUser();
 
-    const visibleRegion = document.querySelector('[data-type="region"]:not([style*="display: none"])');
-    const visibleCity = document.querySelector('[data-type="city"]:not([style*="display: none"])');
+    const visibleRegion = document.querySelector('[data-type="region"]:not([style*="display: none"])')?.value || '';
+    const visibleCity = document.querySelector('[data-type="city"]:not([style*="display: none"])')?.value || '';
     const selectedAmenities = [];
 
     document.querySelectorAll('input[name="property-amenities"]:checked').forEach(cb => {
@@ -186,10 +186,19 @@ form.addEventListener('submit', async (event) => {
             baranggay: document.getElementById('property-baranggay').value,
             street: document.getElementById('property-street').value,
         },
-        bedroom: document.getElementById('property-bedroom').value,
-        bathroom: document.getElementById('property-bathroom').value,
+        bedrooms: document.getElementById('property-bedroom').value,
+        bathrooms: document.getElementById('property-bathroom').value,
         amenities: selectedAmenities,
     }
 
+    const { property, error } = await supabase
+    .from('properties')
+    .insert([
+        formData,
+    ])
+    .select()
+
     console.log('Form data:', formData);
+    console.log('Property:', property);
+    console.log('Error:', error);
 });
