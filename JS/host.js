@@ -149,13 +149,15 @@ addAmenityButton.addEventListener('click', () => {
 
 const form = document.getElementById('host-form');
 
-
-
-
-
-
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
+
+
+    // const imageFile = document.getElementById('property-image').files[0];
+    // const fileExt = imageFile.name.split('.').pop();
+    // const fileName = `property-{propertyId}`
+    // console.log(fileExt);
+    // console.log(imageFile);
 
     const { data: { user } } = await supabase.auth.getUser();
 
@@ -191,7 +193,7 @@ form.addEventListener('submit', async (event) => {
         amenities: selectedAmenities,
     }
 
-    const { property, error } = await supabase
+    const { data: property, error } = await supabase
     .from('properties')
     .insert([
         formData,
