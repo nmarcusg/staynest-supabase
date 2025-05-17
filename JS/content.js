@@ -7,12 +7,20 @@ const supabase = createClient(supabaseUrl, supabaseKey);
   
 initNav(supabase); 
 
-async function loadProperties() {
-    try {
-        const { data: properties, error } = await supabase
-            .from('properties')
-            .select(`*,property_images(image_path)`);
 
+async function fetchProperties() {
+    let query = supabase.from('properties').select(`*,property_images(image_path)`);
+        
+    const { data: properties, error } = await query;
+
+    return { properties, error };
+}
+
+async function loadProperties(properties, error) {
+    // clear the container before loading new properties
+    const container = document.getElementById('card-container');
+    container.innerHTML = '';
+    try {
         if (error) {
             console.error("Error fetching properties:", error.message);
             return;
@@ -64,6 +72,5 @@ async function loadProperties() {
     }
 }
 
-loadProperties();
-
+fetchProperties().then(({ properties, error }) => loadProperties(properties, error));
 
