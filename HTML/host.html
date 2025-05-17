@@ -58,9 +58,15 @@
             <label for="property-description">Description:</label>
             <textarea id="property-description" name="property-description" required></textarea>
 
-            <label for="property-image">Property Image:</label>
-            <input type="file" id="property-image" name="property-image" accept="image/*">
-            
+            <div id="property-image-container">
+              <label for="property-image">Property Image:</label>
+              <p>First image will be displayed in listings (max: 10)</p>
+              <input type="file" id="property-image" class="property-image" name="property-image" accept="image/*" required >
+            </div>
+
+            <label for="add-images"></label>
+            <button type="button" id="add-image">Add Image</button>    
+
             <label for="bedroom-number">Bedrooms:</label>
             <input type="number" id="property-bedroom" name="bedroom-number" min="1" max="20" required>
 
