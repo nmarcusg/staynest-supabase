@@ -9,13 +9,6 @@ initNav(supabase);
 
 async function loadProperties() {
     try {
-      const { data: images, error: imageError } = await supabase
-      .from('property_images')
-      .select('*');
-    
-    console.log("Standalone images query:", images);
-
-
         const { data: properties, error } = await supabase
             .from('properties')
             .select(`*,property_images(image_path)`);
@@ -36,7 +29,6 @@ async function loadProperties() {
             card.querySelector('.rate').textContent = `Php ${property.price_per_night} per Night`;
             card.querySelector('.card').dataset.property_id = property.property_id;
             const imgContainer = card.querySelector('.img-container');
-            console.log(property)
 
             // Use the first image from the property_images array
             if (property.property_images && property.property_images.length > 0) {
@@ -49,9 +41,8 @@ async function loadProperties() {
                 img.style.height = '100%';
                 imgContainer.appendChild(img);
             } else {
-                console.warn(`No images found for property ID ${property.property_id}`);
                 const placeholderImg = document.createElement('img');
-                placeholderImg.src = 'https://via.placeholder.com/150';
+                placeholderImg.src = 'https://placehold.co/600x400'; // Placeholder image URL
                 placeholderImg.alt = 'No image available';
                 placeholderImg.style.width = '100%';
                 placeholderImg.style.height = '100%';
