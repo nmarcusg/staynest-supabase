@@ -87,12 +87,14 @@ async function loadPropertyDetails() {
         }
         
         const track = document.getElementById('carouselTrack');
+        track.style.height = '100%';
         track.innerHTML = '';
 
         if (images && images.length > 0) {
             images.forEach(img => {
                 const imgElem = document.createElement('img');
                 imgElem.src = img.image_path;
+                imgElem.style.height = '100%';
                 imgElem.alt = property.title;
                 console.log(`Image URL: ${imgElem.src}`);
                 track.appendChild(imgElem);
