@@ -21,6 +21,38 @@ ul {
 li {
   margin-bottom: 0.5rem;
 }
+
+.action-button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-right: 10px;
+}
+
+/* Cancel Reservation Button */
+.cancel-button {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #e04e4e;
+}
+
+/* Delete Property Button */
+.delete-button {
+  background-color: #ffa502;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #e08900;
+}
+
 .view-property-button {
   margin-top: 0.5rem;
   padding: 0.4rem 0.8rem;

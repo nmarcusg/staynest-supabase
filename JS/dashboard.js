@@ -58,14 +58,15 @@ async function loadDashboard() {
             From <strong>${res.check_in_date}</strong> to <strong>${res.check_out_date}</strong><br>
             Address: ${formatAddress(address)}
           </p>
-          <button class="view-property-button" onclick="window.location.href='property.html?id=${propertyId}'">
+          <button class="action-button view-property-button" onclick="window.location.href='property.html?id=${propertyId}'">
             View Property
           </button>
-          <button class="cancel-reservation-button" data-reservation-id="${res.id}">
+          <button class="action-button cancel-button cancel-reservation-button" data-reservation-id="${res.id}">
             Cancel Reservation
           </button>
         </div>
       `;
+      
 
       li.querySelector(".cancel-reservation-button").addEventListener("click", async () => {
         const confirmed = confirm("Are you sure you want to cancel this reservation?");
@@ -100,19 +101,44 @@ async function loadDashboard() {
   const noHosted = document.getElementById("no-hosted-properties");
 
   if (hostError || !hostedProperties || hostedProperties.length === 0) {
-    noHosted.style.display = "block";
-  } else {
-    hostedProperties.forEach((prop) => {
-      const li = document.createElement("li");
-      li.innerHTML = `
-        ${prop.title} — ₱${prop.price_per_night}/night
-        <button onclick="window.location.href='property.html?id=${prop.property_id}'">
-          View
-        </button>
-      `;
-      hostedList.appendChild(li);
+  noHosted.style.display = "block";
+} else {
+  hostedProperties.forEach((prop) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      ${prop.title} — ₱${prop.price_per_night}/night
+      <button class="action-button view-property-button" onclick="window.location.href='property.html?id=${prop.property_id}'">
+        View
+      </button>
+      <button class="action-button cancel-button delete-property-button" data-property-id="${prop.property_id}">
+        Delete
+      </button>
+    `;
+
+    // Add event listener for delete button
+    li.querySelector(".delete-property-button").addEventListener("click", async () => {
+      const confirmed = confirm(`Are you sure you want to delete "${prop.title}"? This action cannot be undone.`);
+      if (!confirmed) return;
+
+      const { error: deleteError } = await supabase
+        .from("properties")
+        .delete()
+        .eq("property_id", prop.property_id);
+
+      if (deleteError) {
+        alert("Failed to delete the property.");
+        console.error(deleteError);
+      } else {
+        li.remove();
+        if (hostedList.children.length === 0) {
+          noHosted.style.display = "block";
+        }
+      }
     });
-  }
+
+    hostedList.appendChild(li);
+  });
+}
 }
 
 function formatAddress(addressJson) {
