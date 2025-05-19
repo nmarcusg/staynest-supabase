@@ -6,6 +6,7 @@
   z-index: 1000;
   padding: 0;
   width: 100%;
+  height: auto;
 }
 
 .navbar {
@@ -23,6 +24,8 @@
   color: #5ba034;
   text-decoration: none;
   letter-spacing: 0.03125rem;
+  align-items: center;
+  height: 4rem;
 }
 
 .navbar-middle {
@@ -107,6 +110,8 @@
   display: flex;
   align-items: center;
   margin-left: 1.25rem;
+  height: 2.5rem;
+  overflow: visible;
 }
 
 
