@@ -296,6 +296,7 @@ button[type="submit"]:hover {
     flex-direction: column;
     max-width: 90%;
     margin: 2rem auto;
+    grid-template-columns: 1fr;
   }
 
   .host-left,
@@ -305,8 +306,13 @@ button[type="submit"]:hover {
     padding: 2rem;
   }
 
+  .host-left-design {
+    display: none;
+
   .host-image-container {
     border-left: none;
     border-top: 1px solid #ddd;
+    padding: 2rem 1rem;
   }
+}
 }
