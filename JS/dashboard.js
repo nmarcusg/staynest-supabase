@@ -1,8 +1,10 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
-const supabaseUrl = "https://wkbljryfnphbthnfbghj.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrYmxqcnlmbnBoYnRobmZiZ2hqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU2MzQyODEsImV4cCI6MjA2MTIxMDI4MX0.W8Tcg8whyMUqS0yvOenEaNU6wrFzLr1vWNRhJ6rNOac";
-const supabase = createClient(supabaseUrl, supabaseKey);
 
+const supabaseUrl = "https://wkbljryfnphbthnfbghj.supabase.co";
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrYmxqcnlmbnBoYnRobmZiZ2hqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU2MzQyODEsImV4cCI6MjA2MTIxMDI4MX0.W8Tcg8whyMUqS0yvOenEaNU6wrFzLr1vWNRhJ6rNOac";
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function loadDashboard() {
   const {
@@ -11,14 +13,12 @@ async function loadDashboard() {
   } = await supabase.auth.getUser();
 
   if (userError || !user) {
-    alert("Not logged in.");
-    // window.location.href = "/HTML/login.html";
+    window.location.href = "/HTML/login.html";
     return;
   }
 
   const userId = user.id;
 
-  // Get profile
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select("*")
@@ -34,14 +34,14 @@ async function loadDashboard() {
   document.getElementById("fullname").textContent =
     `${profile.name_first} ${profile.name_last}`;
 
-    const { data: reservations, error: reservationsError } = await supabase
+  const { data: reservations, error: reservationsError } = await supabase
     .from("reservations")
     .select("*, properties(property_id, address, title)")
     .eq("guest_id", userId);
-  
+
   const reservationsList = document.getElementById("reservations-list");
   const noReservations = document.getElementById("no-reservations");
-  
+
   if (reservationsError || !reservations || reservations.length === 0) {
     noReservations.style.display = "block";
   } else {
@@ -50,7 +50,7 @@ async function loadDashboard() {
       const address = res.properties?.address;
       const propertyId = res.property_id;
       const propertyTitle = res.properties?.title || "View Property";
-  
+
       li.innerHTML = `
         <div>
           <p>
@@ -61,14 +61,36 @@ async function loadDashboard() {
           <button class="view-property-button" onclick="window.location.href='property.html?id=${propertyId}'">
             View Property
           </button>
+          <button class="cancel-reservation-button" data-reservation-id="${res.id}">
+            Cancel Reservation
+          </button>
         </div>
       `;
-  
+
+      li.querySelector(".cancel-reservation-button").addEventListener("click", async () => {
+        const confirmed = confirm("Are you sure you want to cancel this reservation?");
+        if (confirmed) {
+          const { error: deleteError } = await supabase
+            .from("reservations")
+            .delete()
+            .eq("id", res.id);
+
+          if (deleteError) {
+            alert("Failed to cancel reservation.");
+            console.error(deleteError);
+          } else {
+            li.remove();
+            if (reservationsList.children.length === 0) {
+              noReservations.style.display = "block";
+            }
+          }
+        }
+      });
+
       reservationsList.appendChild(li);
     });
   }
 
-  // Get hosted properties
   const { data: hostedProperties, error: hostError } = await supabase
     .from("properties")
     .select("*")
@@ -82,7 +104,12 @@ async function loadDashboard() {
   } else {
     hostedProperties.forEach((prop) => {
       const li = document.createElement("li");
-      li.textContent = `${prop.title} — ₱${prop.price_per_night}/night`;
+      li.innerHTML = `
+        ${prop.title} — ₱${prop.price_per_night}/night
+        <button onclick="window.location.href='property.html?id=${prop.property_id}'">
+          View
+        </button>
+      `;
       hostedList.appendChild(li);
     });
   }
@@ -95,8 +122,7 @@ function formatAddress(addressJson) {
 }
 
 document.getElementById("hostPropertyBtn").addEventListener("click", () => {
-    window.location.href = "host.html";
+  window.location.href = "host.html";
 });
-
 
 loadDashboard();

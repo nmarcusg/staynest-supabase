@@ -106,7 +106,11 @@ async function loadPropertyDetails() {
       .eq("property_id", propertyId)
       .single();
 
-    if (error) throw error;
+    if (error || !property) {
+      console.warn("Property not found. Redirecting to content.html...");
+      window.location.href = "/HTML/content.html";
+      return;
+    }
 
     document.getElementById("propertyName").textContent = property.title;
     document.getElementById("propertyLocation").textContent = property.address?.city ?? "Unknown City";
@@ -116,8 +120,10 @@ async function loadPropertyDetails() {
     updateTotalPrice();
   } catch (err) {
     console.error("Error fetching property:", err.message);
+    window.location.href = "/HTML/content.html"; // Fallback on unexpected errors
   }
 }
+
 
 async function loadUnavailableDates() {
   try {
@@ -170,7 +176,7 @@ async function checkSessionAndLoadUser() {
   if (session) {
     await loadUserDetails(session);
   } else {
-    window.location.href = "/login.html";
+    window.location.href = "./login.html";
   }
 }
 
@@ -178,7 +184,7 @@ supabase.auth.onAuthStateChange((_event, session) => {
   if (session) {
     loadUserDetails(session);
   } else {
-    window.location.href = "/login.html";
+    window.location.href = "./login.html";
   }
 });
 
