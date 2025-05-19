@@ -65,14 +65,16 @@
       <label for="property-description">Description:</label>
       <textarea id="property-description" class="property-image"name="property-description" required></textarea>
       
-      <div class="image-upload-section">
+      <div class="image-upload-section" id="property-image-container">
         <label for="property-image" class="custom-file-label">Choose Property Image</label>
         <input type="file" id="property-image" name="property-image" accept="image/*" required>
-        <p>First image will be displayed in listings (max: 10)</p>
-        <button type="button" id="add-image" class="custom-add-button">Add Image</button>
+        
         <span id="file-name"></span>
       </div>
       
+      <p>First image will be displayed in listings (max: 10)</p>
+      <button type="button" id="add-image" class="custom-add-button">Add Image</button>
+
       <label for="bedroom-number">Bedrooms:</label>
       <input type="number" id="property-bedroom" name="bedroom-number" min="1" max="20" required>
 
@@ -90,14 +92,22 @@
       <label for="property-number">Street Number:</label>
       <input type="text" id="property-number" name="property-number" required>
 
-      <label for="property-baranggay">Baranggay:</label>
-      <input type="text" id="property-baranggay" name="property-baranggay">
+      <div id="property-baranggay-container" class="property-container" style="display: flex; flex-direction: column;">
+        <label for="property-baranggay">Baranggay:</label>
+        <input type="text" id="property-baranggay" name="property-baranggay">
+      </div>
+      
+      <div id="property-region-container" class="property-container">
+        <label for="property-region-input">Province/Region:</label>
+        <select id="property-region-select" data-type="region"></select>
+        <input id="property-region-input" data-type="region" style="display:none">
+      </div>
 
-      <label for="property-region-select">Province/Region:</label>
-      <select id="property-region-select" data-type="region"></select>
-
-      <label for="property-city-select">City/Municipality:</label>
-      <select id="property-city-select" data-type="city"></select>
+      <div id="property-city-container" class="property-container">
+          <label for="property-city">City/Municipality:</label>
+          <select id="property-city-select" data-type="city"></select>
+          <input id="property-city-input" data-type="city" style="display:none">
+      </div>
 
       <label for="property-zip">Zip Code:</label>
       <input type="text" id="property-zip" name="property-zip" required>
