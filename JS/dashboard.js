@@ -1,0 +1,102 @@
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+const supabaseUrl = "https://wkbljryfnphbthnfbghj.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrYmxqcnlmbnBoYnRobmZiZ2hqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU2MzQyODEsImV4cCI6MjA2MTIxMDI4MX0.W8Tcg8whyMUqS0yvOenEaNU6wrFzLr1vWNRhJ6rNOac";
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+
+async function loadDashboard() {
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    alert("Not logged in.");
+    // window.location.href = "/HTML/login.html";
+    return;
+  }
+
+  const userId = user.id;
+
+  // Get profile
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", userId)
+    .single();
+
+  if (profileError) {
+    console.error("Profile fetch error:", profileError);
+    return;
+  }
+
+  document.getElementById("username").textContent = profile.username;
+  document.getElementById("fullname").textContent =
+    `${profile.name_first} ${profile.name_last}`;
+
+    const { data: reservations, error: reservationsError } = await supabase
+    .from("reservations")
+    .select("*, properties(property_id, address, title)")
+    .eq("guest_id", userId);
+  
+  const reservationsList = document.getElementById("reservations-list");
+  const noReservations = document.getElementById("no-reservations");
+  
+  if (reservationsError || !reservations || reservations.length === 0) {
+    noReservations.style.display = "block";
+  } else {
+    reservations.forEach((res) => {
+      const li = document.createElement("li");
+      const address = res.properties?.address;
+      const propertyId = res.property_id;
+      const propertyTitle = res.properties?.title || "View Property";
+  
+      li.innerHTML = `
+        <div>
+          <p>
+            <strong>${propertyTitle}</strong><br>
+            From <strong>${res.check_in_date}</strong> to <strong>${res.check_out_date}</strong><br>
+            Address: ${formatAddress(address)}
+          </p>
+          <button class="view-property-button" onclick="window.location.href='property.html?id=${propertyId}'">
+            View Property
+          </button>
+        </div>
+      `;
+  
+      reservationsList.appendChild(li);
+    });
+  }
+
+  // Get hosted properties
+  const { data: hostedProperties, error: hostError } = await supabase
+    .from("properties")
+    .select("*")
+    .eq("owner_id", userId);
+
+  const hostedList = document.getElementById("hosted-properties-list");
+  const noHosted = document.getElementById("no-hosted-properties");
+
+  if (hostError || !hostedProperties || hostedProperties.length === 0) {
+    noHosted.style.display = "block";
+  } else {
+    hostedProperties.forEach((prop) => {
+      const li = document.createElement("li");
+      li.textContent = `${prop.title} — ₱${prop.price_per_night}/night`;
+      hostedList.appendChild(li);
+    });
+  }
+}
+
+function formatAddress(addressJson) {
+  if (!addressJson || typeof addressJson !== "object") return "Unknown";
+  const { street, city, country } = addressJson;
+  return [street, city, country].filter(Boolean).join(", ");
+}
+
+document.getElementById("hostPropertyBtn").addEventListener("click", () => {
+    window.location.href = "host.html";
+});
+
+
+loadDashboard();

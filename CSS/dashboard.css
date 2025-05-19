@@ -1,3 +1,57 @@
+.dashboard-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  font-family: 'Open Sans', sans-serif;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+.empty-message {
+  color: #888;
+  font-style: italic;
+}
+
+ul {
+  padding-left: 1.5rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+.view-property-button {
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-property-button:hover {
+  background-color: #0056b3;
+}
+
+.host-button {
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .host-button:hover {
+    background-color: #218838;
+  }
+
 footer {
     margin-top: auto;
     background-color: #ffffff;

@@ -56,10 +56,29 @@
         </div>
       </header>
 
-    <main>
-        <h2>Your Dashboard Content Here</h2>
-        <!-- Add your dashboard content here -->
-    </main>
+      <main class="dashboard-container">
+        <section class="user-details" id="user-details">
+          <h2>Your Details</h2>
+          <p><strong>Username:</strong> <span id="username"></span></p>
+          <p><strong>Full Name:</strong> <span id="fullname"></span></p>
+        </section>
+      
+        <section class="user-reservations">
+          <h2>Your Reservations</h2>
+          <ul id="reservations-list"></ul>
+          <p id="no-reservations" class="empty-message" style="display: none;">You haven't made any reservations yet.</p>
+        </section>
+      
+        <section id="hosted-properties-section">
+            <h3>Your Hosted Properties</h3>
+            <ul id="hosted-properties-list"></ul>
+            <p id="no-hosted-properties" style="display: none;">You haven't hosted any properties yet.</p>
+            
+            <!-- Button to host a property -->
+            <button id="hostPropertyBtn" class="host-button">Host a Property</button>
+          </section>
+      </main>
+      
 
     <footer>
         <div class="footer-inner">
