@@ -1,12 +1,119 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 html, body {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    font-family: "Open Sans", sans-serif;
+  height: 100%;
+  font-family: "Open Sans", sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  margin: 2rem 0;
+  color: #5ba034;
+  font-size: 2.5rem;
+}
+
+.reservation-details {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.reservation-details h2 {
+  color: #5ba034;
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+}
+
+.reservation-details p {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+input[type="date"] {
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+input[type="date"]:focus {
+  border-color: #5ba034;
+  outline: none;
+}
+
+#unavailable-dates-container {
+  margin-top: 1rem;
+  background-color: #f0f0f0;
+  padding: 1rem;
+  border-left: 4px solid #5ba034;
+  border-radius: 0.5rem;
+}
+
+#unavailable-dates-list {
+  margin-top: 0.5rem;
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+#confirmReservationButton {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #5ba034;
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background-color 0.3s;
+}
+
+#confirmReservationButton:hover {
+  background-color: #489227;
+}
+
+#checkoutPrice {
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .reservation-details {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  input[type="date"] {
+    max-width: 100%;
+  }
+
+  #confirmReservationButton {
+    width: 100%;
+    text-align: center;
+  }
 }
