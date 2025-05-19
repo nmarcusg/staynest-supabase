@@ -13,11 +13,3 @@ window.onload = function () {
         myFunction(firstImg);
     }
 };
-
-const menuButton = document.querySelector(".mobile-menu-button");
-const mainNav = document.querySelector(".main-nav");
-
-menuButton.addEventListener("click", () => {
-    menuButton.classList.toggle("active");
-    mainNav.classList.toggle("active");
-});
