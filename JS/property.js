@@ -9,7 +9,7 @@ const propertyId = urlParams.get('id');
 const reserveButton = document.getElementById('reserveButton');
 let redirect = '#';
 
-initNav(supabase); 
+initNav(supabase);
 
 console.log(`Property ID: ${propertyId}`);
 
