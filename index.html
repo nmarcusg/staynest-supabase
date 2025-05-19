@@ -44,6 +44,8 @@
             <li><a href="../HTML/about.html">About</a></li>
             <li><a href="../HTML/reserve.html">Reserve</a></li>
             <li><a href="/HTML/login.html" id="logInOut">Log In</a></li>
+            <li id="profile-image-container"></li>
+
           </ul>
         </nav>
         <button class="mobile-menu-button">
@@ -161,66 +163,52 @@
     </div>
   </footer>
 
-  <script>
-    const descriptions = {
-      img1: {
-        title: "Tagaytay Cozy Poolside Villa",
-        text: "Fresh linens, toilet tissue, amenity kits and towels are provided. Bedding arrangements will be set based on the number of booked guests. Water, electricity, and internet services are provided by third-party suppliers, and any service interruptions are beyond the host’s control. We look forward to welcoming you and ensuring you have a comfortable and enjoyable stay. If you have any questions, feel free to reach out."
-      },
-      img2: {
-        title: "Palawan Beachfront Glamping",
-        text: "Situated along North National Highway, Barangay San Rafael, Puerto Princesa City, our beach house is a stunning retreat just 60 kilometers away from the airport, offering a one-hour scenic road trip to reach this coastal haven. Immerse yourself in the untouched beauty of Palawan as our beach house seamlessly integrates with nature."
-      },
-      img3: {
-        title: "Snug-InStyle with Magnificent Manila Bay View",
-        text: "This 1 Bedroom Executive unit with Magnificent Manila Bay view is close to everything, making it easy to plan your visit. Near World Trade Center, PICC, CCP, Star City, MOA, Manila Ocean Park, US Embassy , NAIA. Whether you're travelling for business or leisure, we offer comfort, convenience and affordability."
-      },
-      img4: {
-        title: "Comfy studio in Baguio City center",
-        text: "New studio unit with balcony located beside SLU Main Campus and walking distance to the Public Market, Session Road, Burnham Park and just a few minutes ride to SM and Cathedral. Thoughtfully designed to make you feel right at home thus creating the perfect cozy retreat for your stay."
-      }
-    };
-
-    function myFunction(imgs) {
-      const expandImg = document.getElementById("expandedImg");
-      const imgTitle = document.getElementById("imgTitle");
-      const imgDescription = document.getElementById("imgDescription");
-      const overlay = document.getElementById("imageOverlay");
-
-      const key = imgs.alt.trim();
-      const info = descriptions[key] || {
-        title: "Recommended Place",
-      };
-
-      expandImg.classList.add("fade-out");
-      overlay.classList.add("fade-active");
-
-      setTimeout(() => {
-        expandImg.src = imgs.src;
-        imgTitle.textContent = info.title;
-        imgDescription.textContent = info.text;
-
-        expandImg.classList.remove("fade-out");
-        overlay.classList.remove("fade-active");
-      }, 300);
-    }
-
-    window.onload = function () {
-      const firstImg = document.querySelector(".recommended-column img");
-      if (firstImg) {
-        myFunction(firstImg);
-      }
-    };
-  </script>
-  <script>
-    const menuButton = document.querySelector(".mobile-menu-button");
-    const mainNav = document.querySelector(".main-nav");
-
-    menuButton.addEventListener("click", () => {
-      menuButton.classList.toggle("active");
-      mainNav.classList.toggle("active");
-    });
-  </script>
+  <script type="module" src="../JS/navbar.js" defer></script>
+  <script type="module" src="../JS/index.js" defer></script>
 </body>
+<script>const descriptions = {
+    img1: {
+      title: "Tagaytay Cozy Poolside Villa",
+      text: "Fresh linens, toilet tissue, amenity kits and towels are provided. Bedding arrangements will be set based on the number of booked guests. Water, electricity, and internet services are provided by third-party suppliers, and any service interruptions are beyond the host’s control. We look forward to welcoming you and ensuring you have a comfortable and enjoyable stay. If you have any questions, feel free to reach out."
+    },
+    img2: {
+      title: "Palawan Beachfront Glamping",
+      text: "Situated along North National Highway, Barangay San Rafael, Puerto Princesa City, our beach house is a stunning retreat just 60 kilometers away from the airport, offering a one-hour scenic road trip to reach this coastal haven. Immerse yourself in the untouched beauty of Palawan as our beach house seamlessly integrates with nature."
+    },
+    img3: {
+      title: "Snug-InStyle with Magnificent Manila Bay View",
+      text: "This 1 Bedroom Executive unit with Magnificent Manila Bay view is close to everything, making it easy to plan your visit. Near World Trade Center, PICC, CCP, Star City, MOA, Manila Ocean Park, US Embassy , NAIA. Whether you're travelling for business or leisure, we offer comfort, convenience and affordability."
+    },
+    img4: {
+      title: "Comfy studio in Baguio City center",
+      text: "New studio unit with balcony located beside SLU Main Campus and walking distance to the Public Market, Session Road, Burnham Park and just a few minutes ride to SM and Cathedral. Thoughtfully designed to make you feel right at home thus creating the perfect cozy retreat for your stay."
+    }
+  };
+
+  function myFunction(imgs) {
+    const expandImg = document.getElementById("expandedImg");
+    const imgTitle = document.getElementById("imgTitle");
+    const imgDescription = document.getElementById("imgDescription");
+    const overlay = document.getElementById("imageOverlay");
+
+    const key = imgs.alt.trim();
+    const info = descriptions[key] || {
+      title: "Recommended Place",
+    };
+
+    expandImg.classList.add("fade-out");
+    overlay.classList.add("fade-active");
+
+    setTimeout(() => {
+      expandImg.src = imgs.src;
+      imgTitle.textContent = info.title;
+      imgDescription.textContent = info.text;
+
+      expandImg.classList.remove("fade-out");
+      overlay.classList.remove("fade-active");
+    }, 300);
+  }
+</script>
+
 
 </html>
