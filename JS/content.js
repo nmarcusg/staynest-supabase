@@ -78,8 +78,8 @@ async function filterProperties({ maxPrice, city, region, bedrooms, bathrooms })
         .select(`*, property_images(image_path)`);
 
     if (maxPrice) query = query.lte('price_per_night', maxPrice);
-    if (city) query = query.eq('address->>city', city);
-    if (region) query = query.eq('address->>region', region);
+    if (city) query = query.ilike('address->>city', `%${city}%`);
+    if (region) query = query.ilike('address->>region', `%${region}%`);
     if (bedrooms) query = query.eq('bedrooms', bedrooms);
     if (bathrooms) query = query.eq('bathrooms', bathrooms);
 
