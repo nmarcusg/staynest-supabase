@@ -34,7 +34,7 @@ async function loadProperties(properties, error) {
 
             card.querySelector('.title').textContent = property.title;
             card.querySelector('.location').textContent = property.address?.city ?? "Unknown City";
-            card.querySelector('.rate').textContent = `Php ${property.price_per_night} per Night`;
+            card.querySelector('.rate').textContent = `₱ ${property.price_per_night} per Night`;
             card.querySelector('.card').dataset.property_id = property.property_id;
             const imgContainer = card.querySelector('.img-container');
 

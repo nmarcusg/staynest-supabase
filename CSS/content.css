@@ -273,11 +273,6 @@ h1::after {
     margin: 0;
 }
 
-.location::before {
-    content: "📍";
-    font-size: 0.8rem;
-}
-
 .rate {
     font-size: 1rem;
     font-weight: 600;
@@ -285,10 +280,6 @@ h1::after {
     margin: 0;
     margin-top: auto;
     padding-top: 0.5rem;
-}
-
-.rate::before {
-    content: "₱";
 }
 
 @media (max-width: 1200px) {
