@@ -30,7 +30,6 @@ body {
   flex: 0 0 60%;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("https://ibb.co/ym5sz4nG");
   width: 100%;
   height: 100%;
   align-items: center;
@@ -240,6 +239,23 @@ button[type="submit"]:hover {
   transition: all 0.3s;
 }
 
+.remove-amenity,
+.remove-image {
+  background-color: #5ba034;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remove-amenity:hover,
+.remove-image:hover {
+  background-color: #6fbb43;
+}
 /* Responsive styles */
 @media (max-width: 48rem) {
   .navbar {
