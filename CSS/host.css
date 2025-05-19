@@ -256,16 +256,6 @@ button[type="submit"]:hover {
 .remove-image:hover {
   background-color: #6fbb43;
 }
-
-.remove-amenity {
-  font-size: 0.85rem;
-}
-
-#amenity-container input,
-#property-image-container input {
-  vertical-align: middle;
-}
-
 /* Responsive styles */
 @media (max-width: 48rem) {
   .navbar {
