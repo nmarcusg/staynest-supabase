@@ -27,6 +27,7 @@ export function initNav(supabase) {
             const profileImg = document.createElement('img');
             profileImg.src = user.avatar_url;
             profileImg.alt = 'Profile Image';
+            profileImg.classList.add('profile-picture');
 
             profileImgContainer.appendChild(profileImg);
             profileImgContainer
