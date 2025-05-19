@@ -295,7 +295,6 @@ form.addEventListener('submit', async (event) => {
         isPrimaryImage = false; // first image is primary
     }
 
-    //redirect to dashboard
+    alert('Property added successfully!');
     window.location.href = './dashboard.html';
-    
  });

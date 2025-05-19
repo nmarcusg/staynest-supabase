@@ -2,14 +2,14 @@ export function initNav(supabase) {
 
     const loginLogoutLink = document.getElementById('logInOut');
     const profileImgContainer = document.getElementById('profile-image-container');
-
+    const navList = document.querySelector('.main-nav ul'); // Adjust selector if needed
 
     async function loadUserDetails(session) {
         const { data: user, error: userError } = await supabase
-        .from('profiles')
-        .select('username, avatar_url')
-        .eq('id', session.user.id)
-        .single();
+            .from('profiles')
+            .select('username, avatar_url')
+            .eq('id', session.user.id)
+            .single();
 
         if (userError) {
             console.error("Error fetching user details:", userError.message);
@@ -24,14 +24,22 @@ export function initNav(supabase) {
             loginLogoutLink.textContent = 'Log Out';
 
             const user = await loadUserDetails(session);
+
+            // Add profile image
             const profileImg = document.createElement('img');
             profileImg.src = user.avatar_url;
             profileImg.alt = 'Profile Image';
             profileImg.classList.add('profile-picture');
-
             profileImgContainer.appendChild(profileImg);
-            profileImgContainer
-            
+
+            // Add Dashboard link
+            const dashboardLi = document.createElement('li');
+            const dashboardLink = document.createElement('a');
+            dashboardLink.href = '../HTML/dashboard.html';
+            dashboardLink.textContent = 'Dashboard';
+            dashboardLi.appendChild(dashboardLink);
+            navList.insertBefore(dashboardLi, loginLogoutLink.parentElement);
+
             loginLogoutLink.addEventListener('click', async (e) => {
                 e.preventDefault();
                 try {
@@ -42,7 +50,6 @@ export function initNav(supabase) {
                 }
             });
         } else {
-
             loginLogoutLink.textContent = 'Log In';
         }
     });
@@ -55,4 +62,3 @@ menuButton.addEventListener("click", () => {
     menuButton.classList.toggle("active");
     mainNav.classList.toggle("active");
 });
-
