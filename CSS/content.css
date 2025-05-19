@@ -14,12 +14,12 @@ html, body {
 h1 {
     text-align: center;
     margin: 2rem 0 1rem;
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     font-weight: 700;
     color: #2b8a3e;
     position: relative;
     padding-bottom: 1rem;
-    background-color:#ffffff
+    background-color: #ffffff;
 }
 
 h1::after {
@@ -28,35 +28,72 @@ h1::after {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
+    width: clamp(80px, 20vw, 100px);
     height: 4px;
     background: linear-gradient(to right, #2b8a3e, #5c940d);
     border-radius: 2px;
 }
 
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2rem;
-        margin: 1.5rem 0 0.5rem;
-    }
-    
-    h1::after {
-        width: 80px;
-    }
+.filters {
+    background-color: #ffffff;
+    padding: 1rem clamp(1rem, 5vw, 5rem);
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.8rem;
-        padding-bottom: 0.8rem;
-    }
+#filter-form {
+    display: flex;
+    gap: clamp(0.5rem, 2vw, 1rem);
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#filter-form input {
+    padding: 0.8rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    font-family: "Open Sans", sans-serif;
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+    color: #212529;
+    transition: all 0.2s ease;
+    flex: 1 1 180px;
+    min-width: 120px;
+}
+
+#filter-form input:focus {
+    outline: none;
+    border-color: #2b8a3e;
+    box-shadow: 0 0 0 2px rgba(43, 138, 62, 0.2);
+}
+
+#filter-form input::placeholder {
+    color: #6c757d;
+}
+
+#filter-form button {
+    padding: 0.8rem clamp(1rem, 3vw, 1.5rem);
+    background-color: #2b8a3e;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-family: "Open Sans", sans-serif;
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 0 0 auto;
+}
+
+#filter-form button:hover {
+    background-color: #248232;
+    transform: translateY(-1px);
 }
 
 .card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    padding: 2rem 5rem;
-    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fill, minmax(clamp(250px, 30vw, 300px), 1fr));
+    padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 5vw, 5rem);
+    gap: clamp(0.8rem, 2vw, 1.2rem);
     background-color: #ffffff;
 }
 
@@ -64,7 +101,7 @@ h1::after {
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
-    background: rgb(255, 255, 255);
+    background: #ffffff;
     border-radius: 0.5rem;
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -102,7 +139,7 @@ h1::after {
 }
 
 .title {
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 1.5vw, 1.1rem);
     font-weight: 600;
     color: #212529;
     margin: 0;
@@ -115,13 +152,13 @@ h1::after {
     display: flex;
     align-items: center;
     gap: 0.3rem;
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 1.2vw, 0.9rem);
     color: #6c757d;
     margin: 0;
 }
 
 .rate {
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 1.3vw, 1rem);
     font-weight: 600;
     color: #2b8a3e;
     margin: 0;
@@ -129,22 +166,22 @@ h1::after {
     padding-top: 0.5rem;
 }
 
-@media (max-width: 1200px) {
-    .card-container {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    }
-}
-
 @media (max-width: 768px) {
-    .card-container {
-        padding: 1.5rem;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    #filter-form input {
+        flex: 1 1 45%;
     }
 }
 
 @media (max-width: 480px) {
+    #filter-form input {
+        flex: 1 1 100%;
+    }
+    
+    #filter-form button {
+        width: 100%;
+    }
+    
     .card-container {
         grid-template-columns: 1fr;
-        padding: 1rem;
     }
 }
