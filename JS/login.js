@@ -108,7 +108,7 @@ completeProfileForm.addEventListener('submit', async (e) => {
       return showError(completeProfileForm, insertError.message);
     }
   
-    window.location.href = './loggedIn.html';
+    window.location.href = './dashboard.html';
   });
   
   
@@ -131,5 +131,5 @@ loginForm.addEventListener('submit', async (e) => {
     }
 
     console.log('Logged in:', data.user);
-    window.location.href = './loggedIn.html';
+    window.location.href = './dashboard.html';
 });

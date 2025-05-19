@@ -227,8 +227,12 @@ confirmBtn.addEventListener("click", async () => {
 
     if (insertErr) throw insertErr;
 
-    showMessage("Reservation confirmed! Waiting for owner approval", "reservationSuccess", "green");
-
+    showMessage("Rese rvation confirmed! Waiting for owner approval", "reservationSuccess", "green");
+    //redirect to the dashboard
+    setTimeout(() => {
+      window.location.href = "/HTML/dashboard.html";
+    }
+    , 2000);
   } catch (err) {
     console.error(err);
     showMessage("Failed to create reservation. Please try again.", "reservationError");
