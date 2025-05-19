@@ -1,6 +1,8 @@
+html {
+  font-family: "Open Sans", sans-serif;
+}
+
 .dashboard-container {
-  max-width: 800px;
-  margin: auto;
   padding: 2rem;
   font-family: 'Open Sans', sans-serif;
 }
@@ -52,7 +54,6 @@ li {
 .delete-button:hover {
   background-color: #e08900;
 }
-
 .view-property-button {
   margin-top: 0.5rem;
   padding: 0.4rem 0.8rem;
@@ -98,4 +99,23 @@ footer {
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+#hosted-properties-section button{
+    max-width: 300px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
 }

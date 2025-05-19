@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/CSS/index.css">
         <link rel="stylesheet" href="/CSS/navbar.css">
       
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,19 +55,19 @@
       </header>
 
       <main class="dashboard-container">
-        <section class="user-details" id="user-details">
+        <section class="user-details container" id="user-details">
           <h2>Your Details</h2>
           <p><strong>Username:</strong> <span id="username"></span></p>
           <p><strong>Full Name:</strong> <span id="fullname"></span></p>
         </section>
       
-        <section class="user-reservations">
+        <section class="user-reservations container">
           <h2>Your Reservations</h2>
           <ul id="reservations-list"></ul>
           <p id="no-reservations" class="empty-message" style="display: none;">You haven't made any reservations yet.</p>
         </section>
       
-        <section id="hosted-properties-section">
+        <section id="hosted-properties-section" class="container">
             <h3>Your Hosted Properties</h3>
             <ul id="hosted-properties-list"></ul>
             <p id="no-hosted-properties" style="display: none;">You haven't hosted any properties yet.</p>
