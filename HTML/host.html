@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/CSS/host.css">
+    <link rel="stylesheet" href="../CSS/navbar.css">
 </head>
 <body>
 
@@ -46,99 +47,103 @@
 
 <div class="host-wrapper">
 
-    <div class="host-left">
-        <h1>Host your own property</h1>
-    </div>
+  <div class="host-left-design">
+    <h1 class="host-message">Host your own property</h1>
+  </div>
 
-    <div class="host-form-container">
-        <form id="host-form" class="form">
-            <h2>Property Details</h2>
-            <label for="property-name">Property Listing Title:</label>
-            <input type="text" id="property-name" name="property-name" required>
+  <div class="host-form-container">
+    <form id="host-form" class="form">
+      <h2>Property Details</h2>
+      <label for="property-name">Property Listing Title:</label>
+      <input type="text" id="property-name" name="property-name" required>
 
-            <label for="property-description">Description:</label>
-            <textarea id="property-description" name="property-description" required></textarea>
+      <label for="property-description">Description:</label>
+      <textarea id="property-description" class="property-image"name="property-description" required></textarea>
+      
+      <div class="image-upload-section">
+        <label for="property-image" class="custom-file-label">Choose Property Image</label>
+        <input type="file" id="property-image" name="property-image" accept="image/*" required>
+        <p>First image will be displayed in listings (max: 10)</p>
+        <button type="button" id="add-image" class="custom-add-button">Add Image</button>
+        <span id="file-name"></span>
+      </div>
+      
+      <label for="bedroom-number">Bedrooms:</label>
+      <input type="number" id="property-bedroom" name="bedroom-number" min="1" max="20" required>
 
-            <div id="property-image-container">
-              <label for="property-image">Property Image:</label>
-              <p>First image will be displayed in listings (max: 10)</p>
-              <input type="file" id="property-image" class="property-image" name="property-image" accept="image/*" required >
-            </div>
+      <label for="bathroom-number">Bathrooms:</label>
+      <input type="number" id="property-bathroom" name="bathroom-number" min="1" max="20" required>
 
-            <label for="add-images"></label>
-            <button type="button" id="add-image">Add Image</button>    
+      <h2>Address</h2>
 
-            <label for="bedroom-number">Bedrooms:</label>
-            <input type="number" id="property-bedroom" name="bedroom-number" min="1" max="20" required>
+      <label for="property-country">Country:</label>
+      <input type="text" id="property-country" name="property-country" required>
 
-            <label for="bathroom-number">Bathrooms:</label>
-            <input type="number" id="property-bathroom" name="bathroom-number" min="1" max="20" required>
+      <label for="property-street">Street:</label>
+      <input type="text" id="property-street"  name="property-street" required>
 
-            <h2>Address</h2>
+      <label for="property-number">Street Number:</label>
+      <input type="text" id="property-number" name="property-number" required>
 
-            <label for="property-country">Country:</label>
-            <input type="text" id="property-country" name="property-country" required>
+      <label for="property-baranggay">Baranggay:</label>
+      <input type="text" id="property-baranggay" name="property-baranggay">
 
-            <label for="property-street">Street:</label>
-            <input type="text" id="property-street"  name="property-street" required>
+      <label for="property-region-select">Province/Region:</label>
+      <select id="property-region-select" data-type="region"></select>
 
-            <label for="property-number">Street Number:</label>
-            <input type="text" id="property-number" name="property-number" required>
+      <label for="property-city-select">City/Municipality:</label>
+      <select id="property-city-select" data-type="city"></select>
 
-            <div id="property-baranggay-container" class="property-container">
-                <label for="property-baranggay">Baranggay:</label>
-                <input type="text" id="property-baranggay" name="property-baranggay">
-            </div>
-        
-            <div id="property-region-container" class="property-container">
-                <label for="property-region-input">Province/Region:</label>
-                <select id="property-region-select" data-type="region"></select>
-                <input id="property-region-input" data-type="region" style="display:none">
-            </div>
+      <label for="property-zip">Zip Code:</label>
+      <input type="text" id="property-zip" name="property-zip" required>
 
-            <div id="property-city-container" class="property-container">
-                <label for="property-city">City/Municipality:</label>
-                <select id="property-city-select" data-type="city"></select>
-                <input id="property-city-input" data-type="city" style="display:none">
-            </div>
+      <label for="property-type">Property Type:</label>
+      <select id="property-type" name="property-type" required>
+        <option value="apartment">Apartment</option>
+        <option value="house">House</option>
+        <option value="condo">Condo</option>
+        <option value="townhouse">Townhouse</option>
+        <option value="villa">Villa</option>
+        <option value="other">Others</option>
+      </select>
 
-            <label for="property-zip">Zip Code:</label>
-            <input type="text" id="property-zip" name="property-zip" required>
+      <input type="text" id="property-type-other" name="property-type-other" maxlength="30" placeholder="Please specify if other">
 
-            <label for="property-type">Property Type:</label>
-            <select id="property-type" name="property-type" required>
-                <option value="apartment">Apartment</option>
-                <option value="house">House</option>
-                <option value="condo">Condo</option>
-                <option value="townhouse">Townhouse</option>
-                <option value="villa">Villa</option>
-                <option value="other">Others</option>
-            </select>
+      <label>Amenities:</label>
+      <div class="checkbox-group" id="amenity-container">
+        <input type="checkbox" id="wifi" name="property-amenities" value="Wifi">
+        <label for="wifi">WiFi</label>
+        <input type="checkbox" id="parking" name="property-amenities" value="Parking">
+        <label for="parking">Parking</label>
+        <input type="checkbox" id="pool" name="property-amenities" value="Pool">
+        <label for="pool">Pool</label>
+        <input type="checkbox" id="gym" name="property-amenities" value="Gym">
+        <label for="gym">Gym</label>
+      </div>
 
-        <input type="text" id="property-type-other" name="property-type-other" maxlength="30" placeholder="Please specify if other">
-        <label for="property-amenities">Amenities:</label>
+      <button type="button" id="add-amenity" class="custom-add-button">Add Amenity</button>
 
-        <div class="checkbox-group" id="amenity-container">
-            <input type="checkbox" id="wifi" name="property-amenities" value="Wifi">
-            <label for="wifi">WiFi</label>
-            <input type="checkbox" id="parking" name="property-amenities" value="Parking">
-            <label for="parking">Parking</label>
-            <input type="checkbox" id="pool" name="property-amenities" value="Pool">
-            <label for="pool">Pool</label>
-            <input type="checkbox" id="gym" name="property-amenities" value="Gym">
-            <label for="gym">Gym</label>
-        </div>
+      <label for="property-price">Price per night:</label>
+      <input type="number" id="property-price" name="property-price" max="99999999" min="0" required>
 
-        <label for="add-amenity"></label>
-        <button type="button" id="add-amenity">Add Amenity</button>
-        
-        <label for="property-price">Price per night:</label>
-        <input type="number" id="property-price" name="property-price" max="99999999" min="0" required>
-
-        <button type="submit" class="custom-submit" id="host-form">Submit</button>
-        </form>
-    </div>
+      <button type="submit" class="custom-add-button">Submit</button>
+    </form>
+  </div>
 </div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="../index.html" class="footer-logo">StayNest</a>
+    <div class="footer-right">
+      <div class="footer-social">
+        <a href="https://facebook.com"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://instagram.com"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p>© 2025 StayNest. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
 
     <script type="module" src="../JS/host.js" defer></script>
 </body>
