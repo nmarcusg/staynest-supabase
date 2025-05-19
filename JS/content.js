@@ -72,5 +72,35 @@ async function loadProperties(properties, error) {
     }
 }
 
+async function filterProperties({ maxPrice, city, region, bedrooms, bathrooms }) {
+    let query = supabase
+        .from('properties')
+        .select(`*, property_images(image_path)`);
+
+    if (maxPrice) query = query.lte('price_per_night', maxPrice);
+    if (city) query = query.eq('address->>city', city);
+    if (region) query = query.eq('address->>region', region);
+    if (bedrooms) query = query.eq('bedrooms', bedrooms);
+    if (bathrooms) query = query.eq('bathrooms', bathrooms);
+
+    const { data: filteredProperties, error } = await query;
+    return { properties: filteredProperties, error };
+}
+
+
 fetchProperties().then(({ properties, error }) => loadProperties(properties, error));
 
+document.getElementById('filter-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const filters = {
+        maxPrice: document.getElementById('max-price').value,
+        city: document.getElementById('city').value,
+        region: document.getElementById('region').value,
+        bedrooms: document.getElementById('bedrooms').value,
+        bathrooms: document.getElementById('bathrooms').value,
+    };
+
+    const { properties, error } = await filterProperties(filters);
+    loadProperties(properties, error);
+});

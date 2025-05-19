@@ -30,6 +30,7 @@ body {
   flex: 0 0 60%;
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: #666;
   width: 100%;
   height: 100%;
   align-items: center;
@@ -56,9 +57,9 @@ body {
 
 .host-form-container {
   width: 100%;
-  min-height: 100%;
+  height: 99.8%;
   padding: 2.5rem;
-  padding-bottom: 5rem;
+  padding-bottom: 2rem;
   background-color: #ffffff;
   overflow-y: auto;
   overflow-x: hidden;
@@ -67,7 +68,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1);
+  
 }
 
 .host-image-container {

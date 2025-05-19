@@ -39,6 +39,7 @@
             <li><a href="../HTML/content.html">Listings</a></li>
             <li><a href="../HTML/about.html">About</a></li>
             <li><a href="../HTML/reserve.html">Reserve</a></li>
+            <li><a href="../HTML/host.html">Host</a></li>
             <li><a href="/HTML/login.html" id="logInOut">Log In</a></li>
             <li id="profile-image-container"></li>
           </ul>
@@ -53,6 +54,17 @@
   </header>
 
   <h1>Explore Properties</h1>
+
+  <section id="filters" class="filters">
+    <form id="filter-form">
+      <input type="number" id="max-price" placeholder="Max Price (Php)">
+      <input type="text" id="city" placeholder="City">
+      <input type="text" id="region" placeholder="Region">
+      <input type="number" id="bedrooms" placeholder="Bedrooms">
+      <input type="number" id="bathrooms" placeholder="Bathrooms">
+      <button type="submit">Filter</button>
+    </form>
+  </section>
 
   <template id="template">
     <div class="card">
