@@ -41,7 +41,6 @@ showLoginButton.addEventListener('click', () => switchForms(registerFormContaine
 supabase.auth.onAuthStateChange((event, session) => {
   if (session?.user) {
     console.log('User is logged in:', session.user);
-    window.location.href = './dashboard.html';
   } else {
     console.log('User is not logged in');
   }
