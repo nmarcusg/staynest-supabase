@@ -27,65 +27,67 @@
         width: 100%;
     }
 
-    .main-container {
+    .main-container,
+    .main-container-odd {
         display: flex;
         align-items: center;
-        justify-content: space-between; 
-        gap: 3rem; 
-        padding: 2rem; 
+        justify-content: space-between;
+        gap: 2rem;
+        padding: 2rem;
         max-width: 85rem;
         margin: 0 auto;
     }
 
-    .main-text {
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
-        width: 24rem;
-        font-size: 1.5rem;  
+    .main-text,
+    .main-text-odd {
+        width: 50%; /* Take half the width */
+        text-align: justify;
     }
 
-    .image-container {
+    .image-container,
+    .image-container-odd {
+        width: 50%; /* Take half the width */
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 3rem;
-        padding: 2rem;
     }
 
-    .image-container img {
-        height: auto;
+    /* Responsive styles for smaller screens */
+    @media (max-width: 768px) {
+        .main-container,
+        .main-container-odd {
+            flex-direction: column; /* Stack items vertically */
+            gap: 1.5rem; /* Reduce the gap */
+            padding: 1.5rem;
+        }
+
+        .main-text,
+        .main-text-odd,
+        .image-container,
+        .image-container-odd {
+            width: 100%; /* Take full width */
+            text-align: center; /* Center-align text for better readability */
+        }
+
+        .image-container img,
+        .image-container-odd img {
+            max-width: 100%; /* Ensure images scale properly */
+            height: auto; /* Maintain aspect ratio */
+        }
     }
 
-    .main-container-odd {
-        display: flex;
-        align-items: center; 
-        justify-content: space-between;
-        flex-direction: row; 
-        padding: 1.25rem;
-        max-width: 80rem;
-        gap: 3rem;
-        margin: 0 auto;
-        position: relative;
-        right: 2rem;
-    }
+    /* Additional styles for very small screens */
+    @media (max-width: 480px) {
+        .main-container,
+        .main-container-odd {
+            padding: 1rem;
+        }
 
-    .main-text-odd {
-        display: flex;
-        flex-direction: column;
-        justify-content: center; 
-        padding: 1rem;
-        width: 24rem;
-        text-align: right; 
-        font-size: 1.5rem;
+        .main-text,
+        .main-text-odd {
+            font-size: 1rem; /* Adjust font size for readability */
+        }
     }
-
-    .image-container-odd {
-        display: flex; 
-        gap: 2rem;
-        padding: 1.25rem;
-    }
-
     div.gallery img {
         display: flex;
         width: 11.25rem; /* 180px */
