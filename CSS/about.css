@@ -36,6 +36,7 @@
         padding: 2rem;
         max-width: 85rem;
         margin: 0 auto;
+        
     }
 
     .main-text,
@@ -50,6 +51,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 1rem;
+    }
+
+    .image-container img,
+    .image-container-odd img{
+        border-radius: 1rem;
     }
 
     /* Responsive styles for smaller screens */
