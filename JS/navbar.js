@@ -62,3 +62,27 @@ menuButton.addEventListener("click", () => {
     menuButton.classList.toggle("active");
     mainNav.classList.toggle("active");
 });
+
+const searchForm = document.getElementById('searchForm');
+
+searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const searchQuery = searchInput.value.trim();
+    if (!searchQuery) return;
+
+    const params = new URLSearchParams();
+    params.set('search', searchQuery);
+
+    const isOnContentPage = window.location.pathname.includes('content.html');
+
+    if (isOnContentPage) {
+        const newUrl = new URL(window.location);
+        newUrl.searchParams.set('search', searchQuery);
+        window.history.pushState({}, '', newUrl);
+
+        window.dispatchEvent(new CustomEvent('search', { detail: searchQuery }));
+    } else {
+        // Redirect to content page with search param
+        window.location.href = `/HTML/content.html?${params.toString()}`;
+    }
+});

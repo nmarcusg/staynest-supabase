@@ -4,9 +4,30 @@ import { initNav } from './navbar.js';
 const supabaseUrl = "https://wkbljryfnphbthnfbghj.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrYmxqcnlmbnBoYnRobmZiZ2hqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU2MzQyODEsImV4cCI6MjA2MTIxMDI4MX0.W8Tcg8whyMUqS0yvOenEaNU6wrFzLr1vWNRhJ6rNOac";
 const supabase = createClient(supabaseUrl, supabaseKey);
-  
+const urlParams = new URLSearchParams(window.location.search);
+const searchTerm = urlParams.get('search');
+
 initNav(supabase); 
 
+if (searchTerm) {
+    searchFunction(searchTerm);
+} else {
+    fetchProperties().then(({ properties, error }) => loadProperties(properties, error));
+}
+
+async function searchFunction(searchTerm) {
+    const { data: properties, error} = await supabase
+        .from('properties')
+        .select(`*, property_images(image_path)`)
+        .or(`title.ilike.%${searchTerm}%,address->>city.ilike.%${searchTerm}%,address->>region.ilike.%${searchTerm}%`
+        );
+    if (error) {
+        console.error("Error fetching properties:", error.message);
+        return [];
+    }
+
+    loadProperties(properties, error);
+}
 
 async function fetchProperties() {
     let query = supabase.from('properties').select(`*,property_images(image_path)`);
@@ -87,9 +108,6 @@ async function filterProperties({ maxPrice, city, region, bedrooms, bathrooms })
     return { properties: filteredProperties, error };
 }
 
-
-fetchProperties().then(({ properties, error }) => loadProperties(properties, error));
-
 document.getElementById('filter-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -103,4 +121,15 @@ document.getElementById('filter-form').addEventListener('submit', async (e) => {
 
     const { properties, error } = await filterProperties(filters);
     loadProperties(properties, error);
+});
+
+document.getElementById('clear-filter').addEventListener('click', () => {
+    document.getElementById('filter-form').reset();
+    fetchProperties().then(({ properties, error }) => loadProperties(properties, error));
+});
+
+window.addEventListener('search', (e) => {
+    const searchTerm = e.detail;
+    console.log(searchTerm)
+    searchFunction(searchTerm);
 });
