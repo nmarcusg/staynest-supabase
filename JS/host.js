@@ -37,6 +37,20 @@ propertyType.addEventListener('change', () => {
     }
 });
 
+function showSpinner() {
+    document.getElementById('loading-spinner').style.display = 'flex';
+  }
+  
+  function hideSpinner() {
+    document.getElementById('loading-spinner').style.display = 'none';
+  }
+  
+  function hideButton(buttonId) {
+    const button = document.getElementById(buttonId);
+    if (button) {
+        button.style.display = 'none';
+    }
+  }
 
 //country/region check
 const countryInput = document.getElementById('property-country');
@@ -192,7 +206,8 @@ const form = document.getElementById('host-form');
 
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
-
+    showSpinner();
+    hideButton('submit-button');
     //user auth check
     const { data: { user } } = await supabase.auth.getUser();
 
@@ -299,4 +314,5 @@ form.addEventListener('submit', async (event) => {
     }
 
     alert('Property added successfully!');
+    window.location.href = './dashboard.html';
  });
