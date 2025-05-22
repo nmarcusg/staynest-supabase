@@ -15,6 +15,15 @@ if (searchTerm) {
     fetchProperties().then(({ properties, error }) => loadProperties(properties, error));
 }
 
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('en-PH', {
+        style: 'currency',
+        currency: 'PHP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(amount);
+}
+
 async function searchFunction(searchTerm) {
     const { data: properties, error} = await supabase
         .from('properties')
@@ -55,11 +64,10 @@ async function loadProperties(properties, error) {
 
             card.querySelector('.title').textContent = property.title;
             card.querySelector('.location').textContent = property.address?.city ?? "Unknown City";
-            card.querySelector('.rate').textContent = `₱ ${property.price_per_night} per Night`;
+            card.querySelector('.rate').textContent = `${formatCurrency(property.price_per_night)} per Night`;
             card.querySelector('.card').dataset.property_id = property.property_id;
             const imgContainer = card.querySelector('.img-container');
             
-            console.log(property);
             // Use the first image from the property_images array
             if (property.property_images && property.property_images.length > 0) {
                 const imagePath = property.property_images[0].image_path;
@@ -131,6 +139,5 @@ document.getElementById('clear-filter').addEventListener('click', () => {
 
 window.addEventListener('search', (e) => {
     const searchTerm = e.detail;
-    console.log(searchTerm)
     searchFunction(searchTerm);
 });

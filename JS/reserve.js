@@ -7,6 +7,15 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 initNav(supabase);
 
+function formatCurrency(amount) {
+  return new Intl.NumberFormat('en-PH', {
+      style: 'currency',
+      currency: 'PHP',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+  }).format(amount);
+}
+
 const checkInInput = document.getElementById("checkInDate");
 const checkOutInput = document.getElementById("checkOutDate");
 const confirmBtn = document.getElementById("confirmReservationButton");
@@ -94,7 +103,7 @@ function updateTotalPrice() {
   const total = nights * pricePerNight;
 
   priceDisplay.textContent = nights > 0
-    ? `${nights} night(s) × Php ${pricePerNight} = Php ${total}`
+    ? `${nights} night(s) × Php ${formatCurrency(pricePerNight)} = Php ${formatCurrency(total)}`
     : "";
 }
 
@@ -114,7 +123,7 @@ async function loadPropertyDetails() {
 
     document.getElementById("propertyName").textContent = property.title;
     document.getElementById("propertyLocation").textContent = property.address?.city ?? "Unknown City";
-    document.getElementById("propertyPrice").textContent = `Php ${property.price_per_night} per Night`;
+    document.getElementById("propertyPrice").textContent = `${formatCurrency(property.price_per_night)} per Night`;
     pricePerNight = property.price_per_night;
 
     updateTotalPrice();

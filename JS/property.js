@@ -9,6 +9,15 @@ const propertyId = urlParams.get('id');
 const reserveButton = document.getElementById('reserveButton');
 let redirect = '#';
 
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('en-PH', {
+        style: 'currency',
+        currency: 'PHP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(amount);
+}
+
 initNav(supabase);
 
 console.log(`Property ID: ${propertyId}`);
@@ -72,7 +81,7 @@ async function loadPropertyDetails() {
 
         titleElement.textContent = property.title;
         locationElement.textContent = property.address?.city ?? "Unknown City";
-        rateElement.textContent = `Php ${property.price_per_night} per Night`;
+        rateElement.textContent = `${formatCurrency(property.price_per_night)} per Night`;
         document.getElementById('propertyPriceBox').textContent = rateElement.textContent;
         descriptionElement.textContent = property.description ?? "No description available";
 
