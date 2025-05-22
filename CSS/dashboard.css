@@ -8,6 +8,12 @@ html {
   font-family: "Open Sans", sans-serif;
 }
 
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .dashboard-container {
   padding: 2rem;
   font-family: 'Open Sans', sans-serif;
@@ -91,7 +97,7 @@ li {
     background-color: #218838;
   }
 
-footer {
+  footer {
     margin-top: auto;
     background-color: #ffffff;
     padding: 2rem clamp(1rem, 5vw, 5rem);

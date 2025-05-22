@@ -272,6 +272,16 @@ body {
     transform: scale(1.2);
 }
 
+.star-rating {
+    color: #ffc107;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .star-rating i {
+    margin-right: 2px;
+  }
+
 /* Responsive adjustments */
 @media (max-width: 48rem) { /* 768px / 16 = 48rem */
     .property-details {

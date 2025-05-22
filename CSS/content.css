@@ -142,6 +142,16 @@ h1::after {
     transform: scale(1.03);
 }
 
+.star-rating {
+    color: #ffc107;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .star-rating i {
+    margin-right: 2px;
+  }
+
 .title {
     font-size: clamp(1rem, 1.5vw, 1.1rem);
     font-weight: 600;

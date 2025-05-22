@@ -18,6 +18,23 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
+function renderStars(container, rating) {
+    container.innerHTML = '';
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+  
+    for (let i = 0; i < fullStars; i++) {
+      container.innerHTML += '<i class="fas fa-star"></i>';
+    }
+    if (hasHalfStar) {
+      container.innerHTML += '<i class="fas fa-star-half-alt"></i>';
+    }
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    for (let i = 0; i < emptyStars; i++) {
+      container.innerHTML += '<i class="far fa-star"></i>';
+    }
+}
+
 initNav(supabase);
 
 console.log(`Property ID: ${propertyId}`);
@@ -73,17 +90,21 @@ async function loadPropertyDetails() {
         const titleElement = document.getElementById('propertyName');
         const locationElement = document.getElementById('propertyLocation');
         const rateElement = document.getElementById('propertyPrice');
+        const starContainer = document.getElementById('property-stars');
         document.getElementById('propertyPriceBox').textContent = rateElement.textContent;  
         const descriptionElement = document.getElementById('propertyDescription');
         const ownerElement = document.getElementById('ownerName');
         const ownerUsername = document.getElementById('ownerUsername');
         const amenitiesElement = document.getElementById('amenitiesList');
+        const starRatingText = document.getElementById('star-rating-text');
 
         titleElement.textContent = property.title;
         locationElement.textContent = property.address?.city ?? "Unknown City";
         rateElement.textContent = `${formatCurrency(property.price_per_night)} per Night`;
         document.getElementById('propertyPriceBox').textContent = rateElement.textContent;
         descriptionElement.textContent = property.description ?? "No description available";
+        starRatingText.textContent = `(${property.rating})`;
+        renderStars(starContainer, property.rating);
 
         if (ownerData) {
             ownerElement.textContent = `${ownerData.name_first} ${ownerData.name_last}`;

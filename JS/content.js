@@ -24,6 +24,23 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
+function renderStars(container, rating) {
+    container.innerHTML = '';
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+  
+    for (let i = 0; i < fullStars; i++) {
+      container.innerHTML += '<i class="fas fa-star"></i>';
+    }
+    if (hasHalfStar) {
+      container.innerHTML += '<i class="fas fa-star-half-alt"></i>';
+    }
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    for (let i = 0; i < emptyStars; i++) {
+      container.innerHTML += '<i class="far fa-star"></i>';
+    }
+}
+
 async function searchFunction(searchTerm) {
     const { data: properties, error} = await supabase
         .from('properties')
@@ -66,6 +83,8 @@ async function loadProperties(properties, error) {
             card.querySelector('.location').textContent = property.address?.city ?? "Unknown City";
             card.querySelector('.rate').textContent = `${formatCurrency(property.price_per_night)} per Night`;
             card.querySelector('.card').dataset.property_id = property.property_id;
+            const starContainer = card.querySelector('#property-stars');
+            renderStars(starContainer, property.rating);
             const imgContainer = card.querySelector('.img-container');
             
             // Use the first image from the property_images array

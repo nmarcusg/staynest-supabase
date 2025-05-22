@@ -11,6 +11,21 @@ const completeProfileFormContainer = document.getElementById('complete-profile-f
 const showRegisterButton = document.getElementById('show-register');
 const showLoginButton = document.getElementById('show-login');
 
+function showSpinner() {
+  document.getElementById('loading-spinner').style.display = 'flex';
+}
+
+function hideSpinner() {
+  document.getElementById('loading-spinner').style.display = 'none';
+}
+
+function hideButton(buttonId) {
+  const button = document.getElementById(buttonId);
+  if (button) {
+      button.style.display = 'none';
+  }
+}
+
 function showError(form, message) {
     form.querySelectorAll('p').forEach(p => p.remove());
     const errorElement = document.createElement('p');
@@ -54,7 +69,8 @@ let newUserId = null;
 
 registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-
+    hideButton('register-button');
+    showSpinner();
     const email = registerForm.regEmail.value;
     const password = registerForm.regPassword.value;
 
@@ -68,13 +84,16 @@ registerForm.addEventListener('submit', async (e) => {
         showError(registerForm, error.message);
         return;
     }
-
+    hideSpinner();
     newUserId = data.user.id;
     switchForms(registerFormContainer, completeProfileFormContainer);
 });
 
 completeProfileForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    hideButton('complete-profile-button');
+    showSpinner();
+
     const firstName = completeProfileForm.firstName.value;
     const lastName = completeProfileForm.lastName.value;
     const username = completeProfileForm.username.value;
@@ -115,6 +134,9 @@ completeProfileForm.addEventListener('submit', async (e) => {
 
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    hideButton('login-button');
+    showSpinner();
 
     const email = loginForm.logEmail.value;
     const password = loginForm.logPassword.value;
