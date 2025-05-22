@@ -66,6 +66,7 @@ async function fetchProperties() {
 async function loadProperties(properties, error) {
     // clear the container before loading new properties
     const container = document.getElementById('card-container');
+
     container.innerHTML = '';
     try {
         if (error) {
@@ -73,8 +74,20 @@ async function loadProperties(properties, error) {
             return;
         }
 
+        if (!properties || properties.length === 0) {
+            const noResultsMessage = document.createElement('div');
+            noResultsMessage.textContent = "No properties found matching your criteria.";
+            noResultsMessage.style.gridColumn = "1 / -1";
+            noResultsMessage.style.textAlign = "center";
+            noResultsMessage.style.padding = "2rem";
+            noResultsMessage.style.fontSize = "1.2rem";
+            noResultsMessage.style.color = "#666";
+            
+            container.appendChild(noResultsMessage);
+            return;
+        }
+
         const template = document.getElementById('template');
-        const container = document.getElementById('card-container');
 
         for (const property of properties) {
             const card = template.content.cloneNode(true);

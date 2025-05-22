@@ -34,6 +34,7 @@ ul {
 
 li {
   margin-bottom: 0.5rem;
+  list-style-type: none;
 }
 
 .action-button {
@@ -119,6 +120,7 @@ li {
     justify-content: center;
     background-color: white;
     box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d1d1d1;
     border-radius: 10px;
     padding: 2rem;
 }

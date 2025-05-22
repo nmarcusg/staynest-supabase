@@ -31,8 +31,8 @@ async function loadDashboard() {
   }
 
   document.getElementById("username").textContent = profile.username;
-  document.getElementById("fullname").textContent =
-    `${profile.name_first} ${profile.name_last}`;
+  document.getElementById("firstName").textContent = profile.name_first;
+  document.getElementById("lastName").textContent = profile.name_last;
 
   const { data: reservations, error: reservationsError } = await supabase
     .from("reservations")
@@ -120,7 +120,7 @@ async function loadDashboard() {
 
     // Add event listener for delete button
     li.querySelector(".edit-property-button").addEventListener("click", () => {
-      window.location.href = `editproperty.html?id=${prop.property_id}`;
+      window.location.href = ``;
     });
 
     li.querySelector(".delete-property-button").addEventListener("click", async () => {
