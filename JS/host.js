@@ -48,6 +48,7 @@ function handleCountryChange() {
     if (countryValue !== "philippines") {
         document.getElementById('property-baranggay-container').value = '';
         document.getElementById('property-baranggay-container').style.display = 'none';
+        document.getElementById('property-street').required = false;
         cityInput.name = 'property-city';
         regionInput.name = 'property-region';
 
@@ -57,14 +58,15 @@ function handleCountryChange() {
         citySelect.style.display = 'none';
         regionSelect.style.display = 'none';
 
-        citySelect
 
         cityInput.style.display = 'flex';
+        cityInput.required = true;
+        regionInput.required = true;
         regionInput.style.display = 'flex';
     }
     else {
         document.getElementById('property-baranggay-container').style.display = 'flex';
-        
+        document.getElementById('property-street').required = true;
         citySelect.name = 'property-city';
         regionSelect.name = 'property-region';
 
@@ -75,8 +77,9 @@ function handleCountryChange() {
         regionInput.style.display = 'none';
 
         citySelect.style.display = 'flex';
+        citySelect.required = true;
         regionSelect.style.display = 'flex';
-
+        regionSelect.required = true;
         getLuzonRegion();
     }
 };
@@ -106,9 +109,9 @@ function dropdownRegion(data) {
         citySelect.innerHTML = '<option value="">Select City/Municipality</option>';
         if (selectedRegion) {
             const cities = data[selectedRegion].cities;
-            for (const [key, name] of Object.entries(cities)) {
+            for (const name of Object.values(cities)) { // Use city name directly
                 const option = document.createElement('option');
-                option.value = key;
+                option.value = name; // Set value to the city name
                 option.textContent = name;
                 console.log(option.textContent);
                 citySelect.appendChild(option);
@@ -226,7 +229,7 @@ form.addEventListener('submit', async (event) => {
         bathrooms: document.getElementById('property-bathroom').value,
         amenities: selectedAmenities,
     }
-
+    console.log('Form data:', formData);
     //insert into supabase 'property' table
     const { data: property, error } = await supabase
     .from('properties')
@@ -296,5 +299,4 @@ form.addEventListener('submit', async (event) => {
     }
 
     alert('Property added successfully!');
-    window.location.href = './dashboard.html';
  });

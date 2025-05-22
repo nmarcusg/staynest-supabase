@@ -58,7 +58,8 @@ async function loadProperties(properties, error) {
             card.querySelector('.rate').textContent = `₱ ${property.price_per_night} per Night`;
             card.querySelector('.card').dataset.property_id = property.property_id;
             const imgContainer = card.querySelector('.img-container');
-
+            
+            console.log(property);
             // Use the first image from the property_images array
             if (property.property_images && property.property_images.length > 0) {
                 const imagePath = property.property_images[0].image_path;

@@ -59,6 +59,7 @@ async function loadPropertyDetails() {
             console.log("Owner data:", ownerData);
         }
         
+        console.log("Property data:", property);
 
         const titleElement = document.getElementById('propertyName');
         const locationElement = document.getElementById('propertyLocation');

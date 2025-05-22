@@ -110,12 +110,19 @@ async function loadDashboard() {
       <button class="action-button view-property-button" onclick="window.location.href='property.html?id=${prop.property_id}'">
         View
       </button>
+      <button class="action-button edit-button edit-property-button" data-property-id="${prop.property_id}">
+        Edit
+      </button>
       <button class="action-button cancel-button delete-property-button" data-property-id="${prop.property_id}">
         Delete
       </button>
     `;
 
     // Add event listener for delete button
+    li.querySelector(".edit-property-button").addEventListener("click", () => {
+      window.location.href = `editproperty.html?id=${prop.property_id}`;
+    });
+
     li.querySelector(".delete-property-button").addEventListener("click", async () => {
       const confirmed = confirm(`Are you sure you want to delete "${prop.title}"? This action cannot be undone.`);
       if (!confirmed) return;
