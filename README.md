@@ -8,3 +8,5 @@ Staynest - an Airbnb-like MVP, using vanilla JavaScript, HTML, and CSS along wit
 - reservation cancelling
 - prevents reservation conflicts
 - hosted property management (deletion and editing (not yet implemented)).
+
+Visit: [https://staynest-project.vercel.app](https://staynest-project.vercel.app/)
